@@ -2,7 +2,7 @@ T = int(input())
 a = [1,2,3,4,5,6,7,8,9]
 for test_case in range(1,T+1):
     sdocu = []
-    result = 1
+    result = 1 
     for j in range(9):
         sdocu.append(list(map(int,(input().split()))))
     for k in range(9):
