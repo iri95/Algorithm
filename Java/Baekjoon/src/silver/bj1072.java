@@ -5,7 +5,7 @@ import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 public class bj1072 {
-	static long X, Y, Z, Zup, count;
+	static long X, Y, Z, start, end, mid, ans;
 	
 	public static void main(String[] args) throws Exception {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -13,22 +13,22 @@ public class bj1072 {
 		X = Integer.parseInt(st.nextToken());
 		Y = Integer.parseInt(st.nextToken());
 		Z = (Y * 100) / X;
-		Zup = (Y * 100) / X;
-		count = 0;
-		while(true) {
-			if(Z >= 99) {
-				count = -1;
-				break;
-			}
-			X++;
-			Y++;
-			Zup = (Y * 100) / X;
-			count++;
-			if(Zup != Z) {
-				break;
+		start = 0;
+		end = 1000000000;
+		if(Z >= 99) {
+			System.out.println(-1);
+			return;
+		}
+		while(start <= end) {
+			mid = (start + end) / 2;
+			if(((Y+mid) * 100) / (X + mid) != Z) {
+				ans = mid;
+				end = mid - 1;
+			}else {
+				start = mid + 1;
 			}
 		}
-		System.out.println(count);
+		System.out.println(ans);
 
 	}
 
