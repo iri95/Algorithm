@@ -1,3 +1,4 @@
+package D4;
 
 
 import java.io.BufferedReader;
@@ -6,7 +7,7 @@ import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.Stack;
 
-public class SW_1218_my {
+public class SW_1218 {
 	static Deque<Character> stack = new ArrayDeque<>();
 	static int N;
 	static String a;

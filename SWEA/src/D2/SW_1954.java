@@ -1,3 +1,4 @@
+package D2;
 
 
 import java.io.BufferedReader;

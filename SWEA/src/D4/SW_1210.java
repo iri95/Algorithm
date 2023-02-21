@@ -1,3 +1,4 @@
+package D4;
 
 
 import java.io.BufferedReader;
@@ -5,7 +6,7 @@ import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
-public class SW_1210_my {
+public class SW_1210 {
 	static int[][] data;
 	static int T, end_num, start_num, next_ynum, next_xnum;
 	static StringBuilder sb = new StringBuilder();

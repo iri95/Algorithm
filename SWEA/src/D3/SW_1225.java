@@ -1,3 +1,4 @@
+package D3;
 
 
 import java.io.BufferedReader;
@@ -6,7 +7,7 @@ import java.util.ArrayDeque;
 import java.util.Queue;
 import java.util.StringTokenizer;
 
-public class SW_1225_my {
+public class SW_1225 {
 	static Queue<Integer> queue = new ArrayDeque<>();
 	static StringBuilder sb = new StringBuilder();
 

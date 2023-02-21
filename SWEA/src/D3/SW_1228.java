@@ -1,3 +1,4 @@
+package D3;
 
 
 import java.io.BufferedReader;
@@ -5,7 +6,7 @@ import java.io.InputStreamReader;
 import java.util.LinkedList;
 import java.util.StringTokenizer;
 
-public class SW_1228_my {
+public class SW_1228 {
 	static int N, M, index, count;
 	static LinkedList<Integer> ll = new LinkedList<>();
 	static StringBuilder sb = new StringBuilder();

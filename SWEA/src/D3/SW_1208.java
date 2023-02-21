@@ -1,3 +1,4 @@
+package D3;
 
 
 import java.io.BufferedReader;
@@ -5,7 +6,7 @@ import java.io.FileInputStream;
 import java.io.InputStreamReader;
 
 
-public class SW_1208_my {
+public class SW_1208 {
 	static StringBuilder sb = new StringBuilder();
 	static int dump_count;
 	static int[] boxes = new int[100];
