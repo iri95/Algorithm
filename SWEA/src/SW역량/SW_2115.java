@@ -51,12 +51,12 @@ public class SW_2115 {
 			max = Math.max(max, sum);
 			return;
 		}
-		
+
 		// y가 N이 되었을 경우 끝낸다.
 		if (y == N)
 			return;
-		
-		// x가 범위 밖으로 나가는 경우를 다음으로 넘김 
+
+		// x가 범위 밖으로 나가는 경우를 다음으로 넘김
 		if (N - 1 < M + x - 1) {
 			comb(nx + 1, tgtIdx);
 		} else {
@@ -73,12 +73,12 @@ public class SW_2115 {
 
 	// 배열에서 부분집합을 구해 C보다 작거나 같은 값들 제곱의 최대값을 찾아내 반환
 	static void combSum(int[] a, int srcIdx) {
-		
+
 		if (srcIdx == a.length) {
 			int k = 0;
 			int pow = 0;
 			for (int i = 0; i < a.length; i++) {
-				// 부분집합에 포함되는 경우 
+				// 부분집합에 포함되는 경우
 				if (select[i]) {
 					k += a[i];
 					pow += a[i] * a[i];
@@ -87,15 +87,9 @@ public class SW_2115 {
 			// 꿀의 양이 C 초과일 경우 취소
 			if (k > C)
 				return;
-			// 만약 K 값이 최대일경우 k에 최댓값을 저장하고 제곱값을 초기화
-			if (maxK < k) {
-				maxK = k;
-				maxValue = pow;
-			// k값이 저장된 값과 같을 경우
-			} else if (maxK == k) {
-				// 제곱값이 더 큰 것을 저장
-				maxValue = Math.max(maxValue, pow);
-			}
+
+			// 제곱값이 더 큰 것을 저장
+			maxValue = Math.max(maxValue, pow);
 			return;
 		}
 
