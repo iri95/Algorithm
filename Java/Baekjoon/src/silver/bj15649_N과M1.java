@@ -6,7 +6,7 @@ import java.util.Arrays;
 import java.util.StringTokenizer;
 
 // 자연수 그대로 1씩 증가하는 수가 src 이므로 src 배열을 따로 두지 않고, select 배열과 그 index를 이용해서 해결
-public class bj15649 {
+public class bj15649_N과M1 {
 
 	static int N, M;
 	static int[] tgt;
