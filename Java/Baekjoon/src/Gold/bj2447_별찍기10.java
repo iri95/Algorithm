@@ -3,38 +3,39 @@ package Gold;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
-// 시간초과
 public class bj2447_별찍기10 {
-	static char[][] map;
 	static StringBuilder sb = new StringBuilder();
 	public static void main(String[] args) throws Exception {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		int N = Integer.parseInt(br.readLine());
-		map = new char[N][N];
-		map = func(N);
+		
+		String[][] map = func(N);
+		
 		for (int i = 0; i < N; i++) {
 			for (int j = 0; j < N; j++) {
-				sb.append(map[i][j]);
+				if(map[i][j]==null)sb.append(" ");
+				else sb.append(map[i][j]);
 			}
 			sb.append("\n");
-			
 		}
 		System.out.println(sb);
-
 	}
 
-	static char[][] func(int a) {
-		char[][] arr = new char[a][a];
-		if (a == 1) {
-			arr[0][0] = '*';
+	static String[][] func(int a) {
+		String[][] arr = new String[a][a];
+		if (a == 3) {
+			for (int i = 0; i < 9; i++) {
+				if(i==4)continue;
+				arr[i/3][i%3] = "*";
+			}			
 			return arr;
 		}
-		int y = a/3;
 		int x = a/3; // ~ + a/3-1
+		String[][] temp = func(x);
 		for (int i = 0; i < a; i++) {
 			for (int j = 0; j < a; j++) {
-				if(y <= i && i < y + a/3 && x <= j && j < x + a/3)continue;
-				arr[i][j] = func(a/3)[i%(a/3)][j%(a/3)];
+				if(x <= i && i < 2 * x && x <= j && j < 2 * x)continue;
+				arr[i][j] = temp[i%x][j%x];
 			}
 		}
 		return arr;
