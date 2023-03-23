@@ -5,7 +5,7 @@ import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.StringTokenizer;
 
-public class bj15656_N과M6 {
+public class bj15655_N과M6 {
 	static int N, M, k;
 	static int[] tgt;
 	static int[] src;
