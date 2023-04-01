@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Queue;
 import java.util.StringTokenizer;
 
-public class bj7576 {
+public class bj7576_토마토 {
 	static int[][] map;
 	static List<int[]> posi1 = new ArrayList<>();
 	static int[] dy = { 1, -1, 0, 0 };
