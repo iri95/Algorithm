@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 // 35 점 부분점수
-public class bj14865 {
+public class bj14865_곡선자르기 {
 	static int out, in, index; // 포함되지 않은 수 : out, 포함하지 않는 수를 구하기 위한 값 : in
 	static boolean[] select;
 
