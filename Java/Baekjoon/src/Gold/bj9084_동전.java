@@ -29,7 +29,5 @@ public class bj9084_동전 {
 			}
 			System.out.println(result[M]);
 		}
-
 	}
-
 }
