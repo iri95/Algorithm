@@ -5,7 +5,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 // https://moonsbeen.tistory.com/101
-public class bj1167_트리의지름 {
+public class bj1167_트리의지름  {
     static int N, ans, nodeSave;
 
     static class Node {
