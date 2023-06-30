@@ -10,7 +10,10 @@ import java.util.StringTokenizer;
 public class bj9466_팀프로젝트 {
     static int N, number, result;
     static int[] list;
+    // visit : 전체에서 방문 여부
+    // circle : 한번의 dfs에서의 방문 여부
     static boolean[] visit, circle;
+
     static StringBuilder sb = new StringBuilder();
 
     public static void main(String[] args) throws Exception {
