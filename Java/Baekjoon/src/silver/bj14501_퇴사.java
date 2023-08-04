@@ -20,9 +20,7 @@ public class bj14501_퇴사 {
                 dpMax = Math.max(dpMax, dp[j]);
             }
             dp[i + T - 1] = Math.max(dp[i + T - 1], dpMax + P);
-        }
-        for (int i = 1; i <= N; i++) {
-            max = Math.max(max, dp[i]);
+            max = Math.max(max, dp[i + T - 1]);
         }
         System.out.println(max);
     }
