@@ -9,7 +9,6 @@ public class bj1339_단어수학 {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int N = Integer.parseInt(br.readLine());
         int[] arr = new int[26];
-        Arrays.fill(arr, 0);
         for (int i = 0; i < N; i++) {
             String str = br.readLine();
             int n = str.length();
