@@ -20,7 +20,7 @@ public class bj6996_에너그램 {
             String a2 = str2.chars().sorted().collect(StringBuilder::new,
                     StringBuilder::appendCodePoint,
                     StringBuilder::append)
-                    .toString();;
+                    .toString();
             if(a1.equals(a2)){
                 System.out.println(str1 + " & " + str2 + " are anagrams.");
             }else{
