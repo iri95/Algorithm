@@ -2,12 +2,9 @@ package Gold;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.StringTokenizer;
+import java.util.*;
 
-public class bj12015_가장긴증가하는부분수열2 {
+public class bj14002_가장긴증가하는부분수열4 {
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int N = Integer.parseInt(br.readLine());
@@ -17,18 +14,36 @@ public class bj12015_가장긴증가하는부분수열2 {
             list[i] = Integer.parseInt(st.nextToken());
         }
         List<Integer> result = new ArrayList<>();
+        int[] index = new int[N];
         result.add(list[0]);
         for (int i = 1; i < N; i++) {
             if (list[i] > result.get(result.size() - 1)) {
                 result.add(list[i]);
+                index[i] = result.size() - 1;
             } else {
                 int k = Collections.binarySearch(result, list[i]);
                 if (k < 0){
                     result.set((k + 1) * (-1), list[i]);
+                    index[i] = (k + 1) * (-1);
+                }else{
+                    index[i] = k;
                 }
             }
         }
-        System.out.println(result.size());
+        int size = result.size();
+        System.out.println(size);
+        Stack<Integer> stack = new Stack<>();
+        size--;
+        for (int i = N - 1; i >= 0 ; i--) {
+            if (size == index[i]) {
+                stack.add(list[i]);
+                size--;
+            }
+            if (size < 0)break;
+        }
+        for (int i = 0; i < result.size(); i++) {
+            System.out.print(stack.pop() + " ");
+        }
     }
 }
 
