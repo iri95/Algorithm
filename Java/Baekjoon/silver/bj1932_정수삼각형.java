@@ -1,4 +1,4 @@
-package Baekjoon.src.silver;
+package silver;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
