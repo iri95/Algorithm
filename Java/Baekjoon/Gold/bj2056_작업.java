@@ -16,6 +16,7 @@ public class bj2056_작업 {
         N = Integer.parseInt(br.readLine());
         time = new int[N + 1];
         finish = new int[N + 1];
+
         for (int i = 1; i <= N; i++) {
             StringTokenizer st = new StringTokenizer(br.readLine());
             time[i] = Integer.parseInt(st.nextToken());
@@ -26,13 +27,16 @@ public class bj2056_작업 {
             }
             list.add(in);
         }
+
         for (int i = 0; i < N; i++) {
             if (list.get(i).length == 0) {
                 finish[i + 1] = time[i + 1];
             }
         }
+
         while (!end()) {
             List<Integer> intlist = new ArrayList<>();
+
             for (int i = 0; i < N; i++) {
                 if (finish[i + 1] != 0) continue;
                 int[] k = list.get(i);
@@ -46,6 +50,7 @@ public class bj2056_작업 {
                 if (s) continue;
                 else intlist.add(i + 1);
             }
+
             for (int i = 0; i < intlist.size(); i++) {
                 int k = intlist.get(i);
                 int[] r = list.get(k - 1);
@@ -54,14 +59,15 @@ public class bj2056_작업 {
                 }
             }
         }
+
         int result = 0;
         for (int i = 1; i < N + 1; i++) {
             result = Math.max(result, finish[i]);
         }
+
         System.out.println(result);
 
     }
-
     static boolean end() {
         for (int i = 1; i <= N; i++) {
             if (finish[i] == 0) return false;
