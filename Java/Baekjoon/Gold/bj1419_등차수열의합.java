@@ -30,10 +30,6 @@ public class bj1419_등차수열의합 {
                 if (r < 10) result = 0;
                 else {
                     start = 14;
-                    if (start < l) {
-                        if (l % 2 == 0) start = l;
-                        else start = l + 1;
-                    }
                     if (start <= r) result = (r - start) / 2 + 1;
                     result++;
                 }
