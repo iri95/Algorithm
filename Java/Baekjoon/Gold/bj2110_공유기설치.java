@@ -21,12 +21,12 @@ public class bj2110_공유기설치 {
         Arrays.sort(list);
         int start = 1;
         int end = list[N - 1] - list[0] + 1;
-        while (start < end) {
+        while (start <= end) {
             int mid = (start + end) / 2;
             if (getCount(mid) >= C) {
                 start = mid + 1;
             } else {
-                end = mid;
+                end = mid - 1;
             }
         }
         System.out.println(start -1);
