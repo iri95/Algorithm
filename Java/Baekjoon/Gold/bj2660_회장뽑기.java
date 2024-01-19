@@ -18,7 +18,7 @@ public class bj2660_회장뽑기 {
             StringTokenizer st = new StringTokenizer(br.readLine());
             int a = Integer.parseInt(st.nextToken());
             int b = Integer.parseInt(st.nextToken());
-            if (a == -1 && b == -1)break;
+            if (a == -1)break;
             friend[a][b] = true;
             friend[b][a] = true;
         }
