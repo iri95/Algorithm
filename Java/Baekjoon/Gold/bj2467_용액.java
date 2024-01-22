@@ -28,7 +28,7 @@ public class bj2467_용액 {
                     if (i > mid) {
                         min = list[mid];
                         max = list[i];
-                    } else if (i < mid) {
+                    } else {
                         min = list[i];
                         max = list[mid];
                     }
