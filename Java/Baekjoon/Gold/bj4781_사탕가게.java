@@ -3,7 +3,7 @@ package Gold;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
-
+// 참고 : https://www.acmicpc.net/board/view/82054
 public class bj4781_사탕가게 {
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
