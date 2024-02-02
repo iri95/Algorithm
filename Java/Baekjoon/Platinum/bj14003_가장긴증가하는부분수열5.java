@@ -32,17 +32,17 @@ public class bj14003_가장긴증가하는부분수열5 {
         }
         int size = result.size();
         System.out.println(size);
-        Stack<Integer> stack = new Stack<>();
+        int[] answer = new int[size];
         size--;
         for (int i = N - 1; i >= 0 ; i--) {
             if (size == index[i]) {
-                stack.add(list[i]);
+                answer[size] = list[i];
                 size--;
             }
             if (size < 0)break;
-        }
+        };
         for (int i = 0; i < result.size(); i++) {
-            System.out.print(stack.pop() + " ");
+            System.out.print(answer[i] + " ");
         }
     }
 }
