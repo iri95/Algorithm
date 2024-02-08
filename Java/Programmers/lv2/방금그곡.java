@@ -2,6 +2,7 @@ package lv2;
 
 import java.util.Arrays;
 import java.util.StringTokenizer;
+
 // A#, C#, D#, F#, G# -> H I J K L
 public class 방금그곡 {
     public static String solution(String m, String[] musicinfos) {
