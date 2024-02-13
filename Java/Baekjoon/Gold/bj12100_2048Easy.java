@@ -16,6 +16,7 @@ public class bj12100_2048Easy {
             StringTokenizer st = new StringTokenizer(br.readLine());
             for (int j = 0; j < N; j++) {
                 map[i][j] = Integer.parseInt(st.nextToken());
+                ans = Math.max(map[i][j], ans);
             }
         }
         dfs(map, 0);
@@ -90,20 +91,12 @@ public class bj12100_2048Easy {
     }
 
     static void dfs(int[][] temp, int count) {
-        if (count >= 5) {
-            for (int i = 0; i < N; i++) {
-                for (int j = 0; j < N; j++) {
-                    if (temp[i][j] > ans) ans = temp[i][j];
-                }
-            }
-            return;
-        }
+        if (count >= 5) return;
+
         for (int i = 0; i < 4; i++) {
             int[][] t = new int[N][N];
             for (int j = 0; j < N; j++) {
-                for (int k = 0; k < N; k++) {
-                    t[j][k] = temp[j][k];
-                }
+                t[j] = temp[j].clone();
             }
             dfs(sum(i, t), count + 1);
         }
@@ -118,6 +111,7 @@ public class bj12100_2048Easy {
                         if (temp[j][i] == temp[j + 1][i]) {
                             temp[j][i] *= 2;
                             temp[j + 1][i] = 0;
+                            ans = Math.max(temp[j][i], ans);
                         }
                     }
                 }
@@ -128,6 +122,7 @@ public class bj12100_2048Easy {
                         if (temp[i][j] == temp[i][j - 1]) {
                             temp[i][j] *= 2;
                             temp[i][j - 1] = 0;
+                            ans = Math.max(temp[j][i], ans);
                         }
                     }
                 }
@@ -138,6 +133,7 @@ public class bj12100_2048Easy {
                         if (temp[j][i] == temp[j - 1][i]) {
                             temp[j][i] *= 2;
                             temp[j - 1][i] = 0;
+                            ans = Math.max(temp[j][i], ans);
                         }
                     }
                 }
@@ -148,6 +144,7 @@ public class bj12100_2048Easy {
                         if (temp[i][j] == temp[i][j + 1]) {
                             temp[i][j] *= 2;
                             temp[i][j + 1] = 0;
+                            ans = Math.max(temp[j][i], ans);
                         }
                     }
                 }
