@@ -24,7 +24,6 @@ public class bj12100_2048Easy {
     }
 
     // d 0, 1, 2, 3 -> 북 동 남 서
-    // 이동할 수 있는지
     static void move(int d, int[][] temp) {
         switch (d) {
             case 0:
