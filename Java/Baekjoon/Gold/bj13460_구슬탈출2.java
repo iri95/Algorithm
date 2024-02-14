@@ -181,3 +181,108 @@ public class bj13460_구슬탈출2 {
     }
 
 }
+/*  좋은 풀이
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.*;
+
+public class Main {
+
+    static int N, M;
+    static char[][] map;
+    static boolean[][][][] visit;
+    static int[] mx = new int[]{-1, 1, 0, 0};
+    static int[] my = new int[]{0, 0, -1, 1};
+    static int[] red, blue;
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+
+        N = Integer.parseInt(st.nextToken());
+        M = Integer.parseInt(st.nextToken());
+
+        map = new char[N][M];
+        visit = new boolean[N][M][N][M];
+
+        for (int i = 0; i < N; i++) {
+            String s = br.readLine();
+            for (int j = 0; j < M; j++) {
+                map[i][j] = s.charAt(j);
+                if (map[i][j] == 'B') {
+                    blue = new int[]{i, j};
+                } else if (map[i][j] == 'R') {
+                    red = new int[]{i, j};
+                }
+            }
+        }
+        System.out.println(bfs());
+    }
+
+    static int bfs() {
+        Queue<int[]> qu = new LinkedList<>();
+        qu.add(new int[]{red[0], red[1], blue[0], blue[1], 0});
+        visit[red[0]][red[1]][blue[0]][blue[1]] = true;
+
+        while (!qu.isEmpty()) {
+            int[] now = qu.poll();
+            int cnt = now[4];
+
+            if (cnt >= 10) {
+                return -1;
+            }
+
+            for (int i = 0; i < 4; i++) {
+                int nowRx = now[0];
+                int nowRy = now[1];
+                int nowBx = now[2];
+                int nowBy = now[3];
+
+                while (map[nowRx + mx[i]][nowRy + my[i]] != '#') {
+                    nowRx += mx[i];
+                    nowRy += my[i];
+                    if (map[nowRx][nowRy] == 'O') {
+                        break;
+                    }
+                }
+
+                while (map[nowBx + mx[i]][nowBy + my[i]] != '#') {
+                    nowBx += mx[i];
+                    nowBy += my[i];
+                    if (map[nowBx][nowBy] == 'O') {
+                        break;
+                    }
+                }
+
+                if (map[nowBx][nowBy] == 'O') {
+                    continue;
+                }
+                if (map[nowRx][nowRy] == 'O') {
+                    return ++cnt;
+                }
+
+                if (nowRx == nowBx && nowRy == nowBy) {
+                    if (map[nowRx][nowRy] != 'O') {
+                        int redMove = Math.abs(nowRx - now[0]) + Math.abs(nowRy - now[1]);
+                        int blueMove = Math.abs(nowBx - now[2]) + Math.abs(nowBy - now[3]);
+
+                        if (redMove > blueMove) {
+                            nowRx -= mx[i];
+                            nowRy -= my[i];
+                        } else {
+                            nowBx -= mx[i];
+                            nowBy -= my[i];
+                        }
+                    }
+                }
+                if (!visit[nowRx][nowRy][nowBx][nowBy]) {
+                    visit[nowRx][nowRy][nowBx][nowBy] = true;
+                    qu.offer(new int[]{nowRx, nowRy, nowBx, nowBy, cnt + 1});
+                }
+            }
+        }
+        return -1;
+    }
+}
+
+ */
