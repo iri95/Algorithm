@@ -1,7 +1,9 @@
+package Gold;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.*;
-
+// TODO : Cycle 정리
 public class bj16947_서울지하철2호선 {
     static class Node {
         int index;
