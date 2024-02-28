@@ -77,7 +77,7 @@ public class bj2146_다리만들기 {
                     if (ny < 0 || ny >= N || nx < 0 || nx >= N || visited[ny][nx] || map[ny][nx] == number) continue;
                     if (visit[ny][nx]) {
                         min = Math.min(min, cnt);
-                        visited[ny][nx] = true;
+                        return;
                     }else{
                         visited[ny][nx] = true;
                         queue.add(new int[]{ny, nx});
