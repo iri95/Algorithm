@@ -20,7 +20,6 @@ public class bj20665_독서실거리두기 {
         }
 
         public int compareTo(Node o) {
-            if (o.count == this.count) return this.number - o.number;
             return o.count - this.count;
         }
     }
@@ -58,8 +57,6 @@ public class bj20665_독서실거리두기 {
                     set.remove(j);
                     nodes[j].count = N;
                 }
-            }
-            for (int j = 1; j <= N; j++) {
                 if (!set.contains(j)) nodes[j].count = N;
             }
             for (int zero : set) {
