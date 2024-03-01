@@ -74,12 +74,12 @@ public class bj20665_독서실거리두기 {
                     while (size-- > 0) {
                         int k = queue.poll();
                         if (k - 1 > 0 && !visit[k - 1] && nodes[k - 1].count > count) {
-                            nodes[k - 1].count = Math.min(nodes[k - 1].count, count);
+                            nodes[k - 1].count = count;
                             visit[k - 1] = true;
                             queue.add(k - 1);
                         }
                         if (k + 1 <= N && !visit[k + 1] && nodes[k + 1].count > count) {
-                            nodes[k + 1].count = Math.min(nodes[k + 1].count, count);
+                            nodes[k + 1].count = count;
                             visit[k + 1] = true;
                             queue.add(k + 1);
                         }
