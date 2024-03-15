@@ -17,7 +17,7 @@ public class 파일명정렬 {
             this.tail = tail;
         }
 
-        public String sum(){
+        public String sum() {
             return this.head + this.number + this.tail;
         }
 
