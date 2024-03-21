@@ -1,3 +1,5 @@
+package lv3;
+
 public class 추석트래픽 {
     static class Times implements Comparable<Times> {
         int start;
