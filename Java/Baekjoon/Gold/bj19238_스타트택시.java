@@ -88,6 +88,7 @@ public class bj19238_스타트택시 {
         while (!queue.isEmpty()) {
             int size = queue.size();
             count++;
+            if (count > oil) return new int[]{0};
             while (size-- > 0) {
                 int[] p = queue.poll();
                 for (int i = 0; i < 4; i++) {
@@ -122,6 +123,7 @@ public class bj19238_스타트택시 {
         while (!queue.isEmpty()) {
             int size = queue.size();
             count++;
+            if (count > oil) return new int[]{0};
             while (size-- > 0) {
                 int[] p = queue.poll();
                 for (int i = 0; i < 4; i++) {
