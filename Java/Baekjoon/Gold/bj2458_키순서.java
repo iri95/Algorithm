@@ -42,6 +42,7 @@ public class bj2458_키순서 {
     static boolean bfs(int num) {
         boolean[] visit = new boolean[N + 1];
         visit[num] = true;
+        int count = 0;
         Queue<Integer> highQueue = new ArrayDeque<>();
         Queue<Integer> lowQueue = new ArrayDeque<>();
         highQueue.add(num);
@@ -52,6 +53,7 @@ public class bj2458_키순서 {
                 if (visit[k]) continue;
                 highQueue.add(k);
                 visit[k] = true;
+                count++;
             }
         }
         while (!lowQueue.isEmpty()) {
@@ -60,11 +62,10 @@ public class bj2458_키순서 {
                 if (visit[k]) continue;
                 lowQueue.add(k);
                 visit[k] = true;
+                count++;
             }
         }
 
-        for (int i = 1; i <= N; i++)
-            if (!visit[i]) return false;
-        return true;
+        return count >= N - 1;
     }
 }
