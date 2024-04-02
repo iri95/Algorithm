@@ -9,7 +9,7 @@ import java.util.*;
  */
 public class bj2458_키순서 {
 
-    static class Student{
+    static class Student {
         List<Integer> high = new ArrayList<>();
         List<Integer> low = new ArrayList<>();
     }
@@ -35,10 +35,11 @@ public class bj2458_키순서 {
         }
         int count = 0;
         for (int i = 1; i <= N; i++) {
-            if (bfs(i))count++;
+            if (bfs(i)) count++;
         }
         System.out.println(count);
     }
+
     static boolean bfs(int num) {
         boolean[] visit = new boolean[N + 1];
         visit[num] = true;
