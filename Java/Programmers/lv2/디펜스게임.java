@@ -19,7 +19,7 @@ public class 디펜스게임 {
                 n -= enemy[i];
             }
             if (n < 0) break;
-            answer = i + 1;
+            answer++;
         }
         return answer;
     }
