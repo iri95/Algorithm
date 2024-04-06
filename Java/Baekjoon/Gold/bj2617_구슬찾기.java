@@ -12,27 +12,21 @@ public class bj2617_구슬찾기 {
         int N = Integer.parseInt(st.nextToken());
         int M = Integer.parseInt(st.nextToken());
         int mid = (N + 1) / 2;
-        int[][] highMap = new int[N + 1][N + 1];
-        int[][] lowMap = new int[N + 1][N + 1];
+        int[][] map = new int[N + 1][N + 1];
 
         for (int i = 0; i < M; i++) {
             st = new StringTokenizer(br.readLine());
             int high = Integer.parseInt(st.nextToken());
             int low = Integer.parseInt(st.nextToken());
-            highMap[low][high] = 1;
-            lowMap[high][low] = 1;
+            map[low][high] = 1;
+            map[high][low] = -1;
         }
         for (int i = 1; i <= N; i++) {
             for (int j = 1; j <= N; j++) {
                 if (i == j) continue;
                 for (int k = 1; k <= N; k++) {
                     if (k == j || k == i) continue;
-                    if (highMap[j][i] > 0 && highMap[i][k] > 0) {
-                        highMap[j][k] = 1;
-                    }
-                    if (lowMap[j][i] > 0 && lowMap[i][k] > 0) {
-                        lowMap[j][k] = 1;
-                    }
+                    if(map[j][i] == map[i][k] && map[j][k] == 0) map[j][k] = map[j][i];
                 }
             }
         }
@@ -42,8 +36,8 @@ public class bj2617_구슬찾기 {
             int l = 0;
             for (int j = 1; j <= N; j++) {
                 if (i == j) continue;
-                if (highMap[i][j] > 0) h++;
-                if (lowMap[i][j] > 0) l++;
+                if (map[i][j] == 1) h++;
+                if (map[i][j] == -1) l++;
             }
             if (h >= mid || l >= mid) answer++;
         }
