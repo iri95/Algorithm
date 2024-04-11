@@ -20,6 +20,7 @@ public class 과제진행하기 {
             return this.start - o.start;
         }
     }
+
     public static String[] solution(String[][] plans) {
         int N = plans.length;
         String[] answer = new String[N];
@@ -30,8 +31,6 @@ public class 과제진행하기 {
         }
         Arrays.sort(works);
         Stack<Work> stack = new Stack<>();
-        // 먼저 실행 -> 다음 시작 시간과 그전의 시작시간을 비교하고 남은 시간보다 클 경우 answer에 넣기, 아니면 다시 stack으로
-        //
         int index = 0;
         Work play = works[0];
         for(int i = 1; i < N; i++){
