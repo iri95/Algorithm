@@ -35,7 +35,6 @@ public class 미로탈출명령어 {
                 int nx = route.x + dx[i];
                 int nCnt = route.cnt + 1;
                 String nr = route.route + dc[i];
-                int d = Math.abs(ny - c) + Math.abs(nx - r);
                 if (nCnt > k || ny < 1 || ny > m || nx < 1 || nx > n || visited[nCnt][nx][ny]) continue;
                 if (nCnt == k && ny == c && nx == r) {
                     answer = nr;
