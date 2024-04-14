@@ -70,7 +70,12 @@ public class bj10217_KCMTravel {
                 int nextDist = node.d + d;
 
                 if (nextCost > M || dp[next][nextCost] <= nextDist) continue;
-
+                /*
+                nextCost 보다 큰 금액들의 소요시간 값을 모두 채우는 이유는 위의 if문에서 처리하기 위해서
+                쓰지 않는 값을 넣지 않도록 도와준다.
+                for문으로 다 넣어주지 않아도 답은 맞니만 시간 차이가 약 7배 난다.
+                채울 경우 : 930ms, 채우지 않을 경우 : 6456ms
+                 */
                 for (int i = nextCost; i <= M; i++) {
                     if (dp[next][i] > nextDist) dp[next][i] = nextDist;
                     else break;
@@ -83,5 +88,6 @@ public class bj10217_KCMTravel {
         for (int i = 0; i <= M; i++) answer = Math.min(answer, dp[N][i]);
         System.out.println((answer == INF) ? "Poor KCM" : answer);
     }
+
 }
 
