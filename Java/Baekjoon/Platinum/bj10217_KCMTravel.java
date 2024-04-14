@@ -19,78 +19,68 @@ public class bj10217_KCMTravel {
         }
     }
 
-    private static final int INF = 987654321;
+    static final int INF = Integer.MAX_VALUE;
+    static int N, M, K;
+    static int[][] dp;
+    static List<Node>[] nodes;
+    static Queue<int[]> queue;
 
     public static void main(String[] args) throws IOException {
-        var br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         br.readLine();
 
-        var stk = new StringTokenizer(br.readLine());
-        int n = Integer.parseInt(stk.nextToken());
-        int m = Integer.parseInt(stk.nextToken());
-        int k = Integer.parseInt(stk.nextToken());
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        N = Integer.parseInt(st.nextToken());
+        M = Integer.parseInt(st.nextToken());
+        K = Integer.parseInt(st.nextToken());
 
-        int[][] result = new int[n + 1][m + 1];
-        List<Node>[] adjList = new List[n + 1];
-        for (int i = 0; i <= n; i++) {
-            Arrays.fill(result[i], INF);
-            adjList[i] = new ArrayList<>();
+        dp = new int[N + 1][M + 1];
+        nodes = new ArrayList[N + 1];
+        for (int i = 0; i <= N; i++) {
+            Arrays.fill(dp[i], INF);
+            nodes[i] = new ArrayList<>();
         }
-        for (int i = 0; i < k; i++) {
-            stk = new StringTokenizer(br.readLine());
-            int u = Integer.parseInt(stk.nextToken());
-            int v = Integer.parseInt(stk.nextToken());
-            int c = Integer.parseInt(stk.nextToken());
-            int d = Integer.parseInt(stk.nextToken());
-            adjList[u].add(new Node(v, c, d));
-        }
-
-        for (int i = 0; i <= n; i++) {
-            adjList[i].sort(Comparator.comparingInt(o -> o.d));
+        for (int i = 0; i < K; i++) {
+            st = new StringTokenizer(br.readLine());
+            int u = Integer.parseInt(st.nextToken());
+            int v = Integer.parseInt(st.nextToken());
+            int c = Integer.parseInt(st.nextToken());
+            int d = Integer.parseInt(st.nextToken());
+            nodes[u].add(new Node(v, c, d));
         }
 
-        Deque<int[]> queue = new ArrayDeque<>();
+        for (int i = 0; i <= N; i++) {
+            nodes[i].sort(Comparator.comparingInt(o -> o.d));
+        }
+
+        queue = new ArrayDeque<>();
         queue.add(new int[]{1, 0, 0});
-        result[1][0] = 0;
+        dp[1][0] = 0;
         while (!queue.isEmpty()) {
             int[] p = queue.poll();
             int s = p[0];
             int c = p[1];
             int d = p[2];
 
-            if (s == n) {
-                continue;
-            }
-            if (result[s][c] < d) {
-                continue;
-            }
+            if (s == N || dp[s][c] < d) continue;
 
-            for (Node node : adjList[s]) {
+            for (Node node : nodes[s]) {
                 int next = node.e;
                 int nextCost = node.c + c;
                 int nextDist = node.d + d;
-                if (nextCost > m) {
-                    continue;
-                }
-                if (result[next][nextCost] <= nextDist) {
-                    continue;
-                }
 
-                for (int i = nextCost; i <= m; i++) {
-                    if (result[next][i] > nextDist) {
-                        result[next][i] = nextDist;
-                        continue;
-                    }
-                    break;
+                if (nextCost > M || dp[next][nextCost] <= nextDist) continue;
+
+                for (int i = nextCost; i <= M; i++) {
+                    if (dp[next][i] > nextDist) dp[next][i] = nextDist;
+                    else break;
                 }
                 queue.add(new int[]{next, nextCost, nextDist});
             }
         }
 
         int answer = INF;
-        for (int i = 0; i <= m; i++) {
-            answer = Math.min(answer, result[n][i]);
-        }
+        for (int i = 0; i <= M; i++) answer = Math.min(answer, dp[N][i]);
         System.out.println((answer == INF) ? "Poor KCM" : answer);
     }
 }
