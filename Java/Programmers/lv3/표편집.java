@@ -23,26 +23,24 @@ public class 표편집 {
             cur = cur.next;
         }
 
-        for(int i = 0; i < cmd.length; i++){
-            StringTokenizer st = new StringTokenizer(cmd[i]);
+        for (String str : cmd) {
+            StringTokenizer st = new StringTokenizer(str);
             String commend = st.nextToken();
-            if(commend.equals("U")){
+            if (commend.equals("U")) {
                 int count = Integer.parseInt(st.nextToken());
                 cur = up(cur, count);
-            }else if(commend.equals("D")){
+            } else if (commend.equals("D")) {
                 int count = Integer.parseInt(st.nextToken());
                 cur = down(cur, count);
-            }else if(commend.equals("C")){
+            } else if (commend.equals("C")) {
                 cur = delete(cur);
-            }else{
+            } else {
                 restore();
             }
         }
 
         StringBuilder sb = new StringBuilder();
-        for(int i = 0; i < n; i++){
-            sb.append("O");
-        }
+        sb.append("O".repeat(n));
 
         while(!stack.isEmpty()){
             Node node = stack.pop();
