@@ -49,7 +49,7 @@ public class bj13302_리조트 {
             for (int j = 0; j <= 37; j++) dp[i][j] = dp[i - 1][j + 3];
 
             for (int j = 1; j <= 5; j += 2) {
-                if (i - j < 0) continue;
+                if (i - j < 0) break;
                 for (int k = 0; k <= 40; k++) {
                     if (k - coupon[j] >= 0) {
                         dp[i][k] = Math.min(dp[i][k], dp[i - j][k - coupon[j]] + price[j]);
