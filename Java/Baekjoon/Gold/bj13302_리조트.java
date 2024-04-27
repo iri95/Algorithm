@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.StringTokenizer;
 
+// https://www.acmicpc.net/board/view/60695
 public class bj13302_리조트 {
     static int[] price = {0, 10000, 0, 25000, 0, 37000};
     static int[] coupon = {0, 0, 0, 1, 0, 2};
@@ -28,14 +29,24 @@ public class bj13302_리조트 {
         }
         for (int i = 1; i <= N; i++) {
             if (visited[i]) {
-                dp[i] = dp[i - 1];
+                for (int j = 0; j <= 40; j++) {
+                    dp[i][j] = Math.min(dp[i][j], dp[i - 1][j]);
+                }
+                if (i == 3 && dp[3][0] != 1_000_000) dp[3][1] = price[3];
+                if (i == 5 && dp[5][0] != 1_000_000) dp[5][2] = price[5];
                 continue;
+            }
+            for (int j = 0; j <= 37; j++) {
+                dp[i][j] = Math.min(dp[i][j], dp[i - 1][j + 3]);
             }
             for (int j = 1; j <= 5; j += 2) {
                 if (i - j < 0) continue;
                 for (int k = 0; k <= 40; k++) {
-                    if (k - coupon[j] >= 0) dp[i][k] = Math.min(dp[i][k], dp[i - j][k - coupon[j]] + price[j]);
-                    if (k + 3 <= 40) dp[i][k] = Math.min(dp[i][k], dp[i - 1][k + 3]);
+                    for (int l = 1; l <= j; l++) {
+                        if (k - coupon[j] >= 0) {
+                            dp[i][k] = Math.min(dp[i][k], dp[i - l][k - coupon[j]] + price[j]);
+                        }
+                    }
                 }
             }
         }
