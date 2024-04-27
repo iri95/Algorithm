@@ -30,15 +30,14 @@ public class bj13302_리조트 {
         for (int i = 1; i <= N; i++) {
             if (visited[i]) {
                 for (int j = 0; j <= 40; j++) {
-                    dp[i][j] = Math.min(dp[i][j], dp[i - 1][j]);
+                    dp[i][j] = dp[i - 1][j];
                 }
                 if (i == 3 && dp[3][0] != 1_000_000) dp[3][1] = price[3];
                 if (i == 5 && dp[5][0] != 1_000_000) dp[5][2] = price[5];
                 continue;
             }
-            for (int j = 0; j <= 37; j++) {
-                dp[i][j] = Math.min(dp[i][j], dp[i - 1][j + 3]);
-            }
+            for (int j = 0; j <= 37; j++) dp[i][j] = dp[i - 1][j + 3];
+
             for (int j = 1; j <= 5; j += 2) {
                 if (i - j < 0) continue;
                 for (int k = 0; k <= 40; k++) {
