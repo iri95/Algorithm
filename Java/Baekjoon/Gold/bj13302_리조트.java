@@ -29,9 +29,19 @@ public class bj13302_리조트 {
         }
         for (int i = 1; i <= N; i++) {
             if (visited[i]) {
-                for (int j = 0; j <= 40; j++) {
-                    dp[i][j] = dp[i - 1][j];
+                /*
+                    ex) coupon이 2개 있고, OOXXXXXXO 인 경우 3일권 하나 사는게 이득
+                    하지만 처음 X 부분에서 3일권을 사지 않음.
+                 */
+                for (int j = 1; j <= 5; j += 2) {
+                    if (i - j < 0) continue;
+                    for (int k = 0; k <= 40; k++) {
+                        if (k - coupon[j] >= 0) {
+                            dp[i][k] = Math.min(dp[i - 1][k], dp[i - j][k - coupon[j]] + price[j]);
+                        }
+                    }
                 }
+
                 if (i == 3 && dp[3][0] != 1_000_000) dp[3][1] = price[3];
                 if (i == 5 && dp[5][0] != 1_000_000) dp[5][2] = price[5];
                 continue;
@@ -41,10 +51,8 @@ public class bj13302_리조트 {
             for (int j = 1; j <= 5; j += 2) {
                 if (i - j < 0) continue;
                 for (int k = 0; k <= 40; k++) {
-                    for (int l = 1; l <= j; l++) {
-                        if (k - coupon[j] >= 0) {
-                            dp[i][k] = Math.min(dp[i][k], dp[i - l][k - coupon[j]] + price[j]);
-                        }
+                    if (k - coupon[j] >= 0) {
+                        dp[i][k] = Math.min(dp[i][k], dp[i - j][k - coupon[j]] + price[j]);
                     }
                 }
             }
