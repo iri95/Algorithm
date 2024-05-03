@@ -35,12 +35,12 @@ public class bj11657_타임머신 {
         long[] distance = new long[N + 1];
         Arrays.fill(distance, INF);
         distance[1] = 0;
-        for (int i = 1; i <= N; i++) {
-            for (int j = 0; j < M; j++) {
+        for (int i = 1; i <= N; i++) {  // 정점의 개수 만큼 반복
+            for (int j = 0; j < M; j++) { // 모든 간선을 확인
                 Vertex vertex = vertices[j];
                 if(distance[vertex.start] != INF && distance[vertex.start] + vertex.cost < distance[vertex.end]){
                      distance[vertex.end] = distance[vertex.start] + vertex.cost;
-                     if (i == N) {
+                     if (i == N) { // 음의 사이클 발생할 경우
                          System.out.println(-1);
                          return;
                      }
