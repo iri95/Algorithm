@@ -6,7 +6,7 @@ public class bj1277_발전소설치 {
     static class Node {
         int y;
         int x;
-        List<Integer> linked = new ArrayList<>();
+        List<double[]> linked = new ArrayList<>();
 
         public Node(int y, int x) {
             this.y = y;
@@ -29,41 +29,129 @@ public class bj1277_발전소설치 {
             st = new StringTokenizer(br.readLine());
             int a = Integer.parseInt(st.nextToken());
             int b = Integer.parseInt(st.nextToken());
-            nodes[a].linked.add(b);
-            nodes[b].linked.add(a);
+            nodes[a].linked.add(new double[]{b, 0});
+            nodes[b].linked.add(new double[]{a, 0});
+        }
+        for (int i = 1; i < N; i++) {
+            for (int j = i + 1; j <= N; j++) {
+                double length = Math.sqrt(Math.pow(nodes[j].y - nodes[i].y, 2) + Math.pow(nodes[j].x - nodes[i].x, 2));
+                if (length > M) continue;
+                nodes[i].linked.add(new double[]{j, length});
+                nodes[j].linked.add(new double[]{i, length});
+            }
         }
         double[] distance = new double[N + 1];
-        int INF = Integer.MAX_VALUE;
-        Arrays.fill(distance, INF);
+        Arrays.fill(distance, Integer.MAX_VALUE);
         distance[1] = 0;
-        Queue<double[]> pq = new PriorityQueue<>((o1, o2) -> {
-            if (o1[2] == o2[2]) return (int) (o1[1] - o2[1]);
-            return (int) (o1[2] - o2[2]);
-        }); // node 번호, 전선 갯수
-        pq.add(new double[]{1, 0, 0});
+        Queue<double[]> pq = new PriorityQueue<>(Comparator.comparingDouble(o -> o[1]));
+        pq.add(new double[]{1, 0});
+        boolean[] visited = new boolean[N + 1];
         while (!pq.isEmpty()) {
-            double[] p = pq.poll();
-            Node node = nodes[(int) p[0]];
-            int count = (int) p[1];
-            // 연결 되어있는 node들을 먼저 distance에 반영
-            for (int next : node.linked) {
-                if (distance[next] > distance[(int) p[0]]) {
-                    distance[next] = distance[(int) p[0]];
-                    pq.add(new double[]{next, count, 0});
-                }
-            }
-            // 연결 되어있지 않은 node들을 모두 거리 계산하고 제한 길이보다 길 경우는 제외
-            if (count < W) {
-                for (int i = 1; i <= N; i++) {
-                    double length = Math.sqrt(Math.pow(node.y - nodes[i].y, 2) + Math.pow(node.x - nodes[i].x, 2));
-                    if (distance[(int) p[0]] + length < distance[i]) {
-                        distance[i] = distance[(int) p[0]] + length;
-                        pq.add(new double[]{i, count + 1, length});
-                    }
+            double[] now = pq.poll();
+            int index = (int) now[0];
+            if (visited[index]) continue;
+            visited[index] = true;
+            if (index == N) break;
+            for (double[] next : nodes[index].linked) {
+                int nextIndex = (int) next[0];
+                if (visited[nextIndex]) continue;
+                if (distance[nextIndex] > distance[index] + next[1]) {
+                    distance[nextIndex] = distance[index] + next[1];
+                    pq.add(new double[]{nextIndex, distance[nextIndex]});
                 }
             }
         }
-        System.out.println((int)(distance[N] * 1000));
+        System.out.println(Arrays.toString(distance));
+        System.out.println((int) (distance[N] * 1000));
 
     }
 }
+/*
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+public class Main {
+    static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    static int N, W;
+    static double M, INF = 200001;
+    static Point[] plant;
+    static boolean[][] connected;
+
+    public static void main(String[] args) throws IOException {
+        String[] input = br.readLine().split(" ");
+        N = Integer.parseInt(input[0]);
+        W = Integer.parseInt(input[1]);
+        String MLine = br.readLine();
+        M = Double.parseDouble(MLine);
+
+        plant = new Point[N + 1];
+        connected = new boolean[N + 1][N + 1];
+
+        for (int i = 1; i < N + 1; i++) {
+            String[] line = br.readLine().split(" ");
+            plant[i] = new Point(Integer.parseInt(line[0]), Integer.parseInt(line[1]));
+        }
+
+        for (int i = 0; i < W; i++) {
+            String[] line = br.readLine().split(" ");
+            connected[Integer.parseInt(line[0])][Integer.parseInt(line[1])] = true;
+            connected[Integer.parseInt(line[1])][Integer.parseInt(line[0])] = true;
+        }
+
+        System.out.println(dijstra());
+    }
+
+    private static long dijstra() {
+        double[] distance = new double[N + 1];
+        for (int i = 1; i < N + 1; i++) {
+            distance[i] = INF;
+        }
+        distance[1] = 0;
+        for (int i = 2; i < N + 1; i++) {
+            if (connected[1][i]) distance[i] = 0;
+        }
+
+        boolean[] visited = new boolean[N + 1];
+        for (int i = 0; i < N; i++) {
+            double minDist = INF;
+            int cur = 0;
+            for (int j = 1; j < N + 1; j++) {
+                    if (!visited[j] && minDist >= distance[j]) {
+                        minDist = distance[j];
+                        cur = j;
+                    }
+            }
+            if (cur == N) break;
+            visited[cur] = true;
+            for (int j = 1; j < N + 1; j++) {
+                if (j == cur) continue;
+                int next = j;
+                if (distance[next] > distance[cur] + getDistance(cur, next)) {
+                    distance[next] = distance[cur] + getDistance(cur, next);
+                }
+            }
+        }
+        return (long) (distance[N] * 1000);
+    }
+
+    private static double getDistance(int cur, int next) {
+        if (connected[cur][next]) return 0;
+
+        Point src = plant[cur];
+        Point dest = plant[next];
+        double dist = Math.pow(src.x - dest.x, 2) + Math.pow(src.y - dest.y, 2);
+        return Math.sqrt(dist);
+    }
+
+    static class Point {
+        int x;
+        int y;
+
+        public Point(int x, int y) {
+            this.x = x;
+            this.y = y;
+        }
+    }
+}
+ */
