@@ -61,7 +61,6 @@ public class bj1277_발전소설치 {
                 }
             }
         }
-        System.out.println(Arrays.toString(distance));
         System.out.println((int) (distance[N] * 1000));
 
     }
