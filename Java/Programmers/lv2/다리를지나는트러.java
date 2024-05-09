@@ -30,7 +30,7 @@ public class 다리를지나는트러 {
             Truck truck = queue.poll();
             size--;
             weightSum -= truck.weight;
-            answer = Math.max(answer , truck.time + bridge_length); //
+            answer = Math.max(answer , truck.time + bridge_length); // 트럭이 들어오는 시간에 나가는 트럭도 존재하므로
         }
 
         return answer;
