@@ -12,18 +12,17 @@ public class bj16434_드래곤엔던전 {
         long atk = Long.parseLong(st.nextToken());
         long answer = 0;
         long sum = 0;
+        long a, life, t, cure;
         for (int i = 0; i < N; i++) {
             st = new StringTokenizer(br.readLine());
             if (st.nextToken().equals("1")) {
-                long a = Long.parseLong(st.nextToken());
-                long life = Long.parseLong(st.nextToken());
-                long k = a * (life / atk - (life % atk == 0 ? 1 : 0));
-                sum += k;
+                a = Long.parseLong(st.nextToken());
+                life = Long.parseLong(st.nextToken());
+                sum += a * (life / atk - (life % atk == 0 ? 1 : 0));
                 answer = Math.max(answer, sum);
             } else {
-                long t = Long.parseLong(st.nextToken());
-                long cure = Long.parseLong(st.nextToken());
-                atk += t;
+                atk += Long.parseLong(st.nextToken());
+                cure = Long.parseLong(st.nextToken());
                 sum = sum - cure >= 0 ? sum - cure : 0;
             }
         }
