@@ -12,7 +12,7 @@ public class bj16434_드래곤엔던전 {
         long atk = Long.parseLong(st.nextToken());
         long answer = 0;
         long sum = 0;
-        long a, life, t, cure;
+        long a, life, cure;
         for (int i = 0; i < N; i++) {
             st = new StringTokenizer(br.readLine());
             if (st.nextToken().equals("1")) {
