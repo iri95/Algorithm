@@ -60,3 +60,77 @@ public class bj9576_책나눠주기 {
         return false;
     }
 }
+/* https://www.acmicpc.net/source/52013320 Greedy
+public class Main {
+
+    static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    static StringTokenizer st;
+
+    static int n, m;
+    static boolean[] books;
+
+    static StringBuilder ans = new StringBuilder();
+
+    public static void main(String[] args) throws IOException {
+
+        int t = Integer.parseInt(br.readLine());
+        while(t-- > 0){
+            st = new StringTokenizer(br.readLine());
+            n = Integer.parseInt(st.nextToken());
+            m = Integer.parseInt(st.nextToken());
+            books = new boolean[n + 1];
+            solve();
+        }
+
+        System.out.println(ans);
+    }
+
+    public static void solve() throws IOException{
+        PriorityQueue<Student> queue = new PriorityQueue<>(new Comparator<Student>(){
+            @Override
+            public int compare(Student s1, Student s2){
+                if (s1.b == s2.b) {
+                    return s1.a - s2.a;
+                }
+
+                return s1.b - s2.b;
+            }
+        });
+        for (int i = 0; i < m; i++) {
+            st = new StringTokenizer(br.readLine());
+            int a = Integer.parseInt(st.nextToken());
+            int b = Integer.parseInt(st.nextToken());
+            queue.offer(new Student(a, b));
+        }
+
+        int ansCnt = 0;
+        while (!queue.isEmpty()) {
+            Student cur = queue.poll();
+            int a = cur.a;
+            int b = cur.b;
+
+            for (int i = a; i <= b; i++) {
+                if (!books[i]) {
+                    books[i] = true;
+                    ansCnt++;
+                    break;
+                }
+            }
+        }
+
+
+        ans.append(ansCnt).append("\n");
+    }
+
+
+    public static class Student{
+        int a;
+        int b;
+
+        public Student(int a, int b) {
+            this.a = a;
+            this.b = b;
+        }
+    }
+}
+ */
