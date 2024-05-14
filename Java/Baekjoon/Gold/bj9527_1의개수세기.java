@@ -22,7 +22,7 @@ public class bj9527_1의개수세기 {
         }
     }
     static long countBit(long x){
-        long result = x & 1;
+        long result = x & 1; // 아래의 반복문에서 i == 0 일 때는 고려하지 않기 때문
         for (int i = 54; i > 0; i--) {
             if ((x & (1L << i)) > 0){
                 result += bit[i - 1] + (x - (1L << i) + 1);
