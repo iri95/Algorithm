@@ -25,8 +25,7 @@ public class bj2866_문자열잘라내기 {
         Set<String> set = new HashSet<>();
         int start = 0;
         int end = R;
-        int answer = R + 1;
-        while (start <= end) {
+        while (start < end) {
             int mid = (start + end) / 2;
             boolean same = false;
             for (int i = 0; i < C; i++) {
@@ -36,15 +35,10 @@ public class bj2866_문자열잘라내기 {
                     break;
                 } else set.add(a);
             }
+            if (same) end = mid;
+            else start = mid + 1;
             set.clear();
-            if (same) {
-                answer = mid;
-                end = mid - 1;
-            } else {
-                start = mid + 1;
-            }
-
         }
-        System.out.println(answer);
+        System.out.println(end);
     }
 }
