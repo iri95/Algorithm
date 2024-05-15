@@ -23,16 +23,28 @@ public class bj2866_문자열잘라내기 {
             }
         }
         Set<String> set = new HashSet<>();
-        int count = 0;
-        l : while(true){
+        int start = 0;
+        int end = R;
+        int answer = R + 1;
+        while (start <= end) {
+            int mid = (start + end) / 2;
+            boolean same = false;
             for (int i = 0; i < C; i++) {
-                String a = str[i].substring(count + 1, R);
-                if (set.contains(a)) break l;
-                else set.add(a);
+                String a = str[i].substring(mid + 1, R);
+                if (set.contains(a)) {
+                    same = true;
+                    break;
+                } else set.add(a);
             }
-            count++;
             set.clear();
+            if (same) {
+                answer = mid;
+                end = mid - 1;
+            } else {
+                start = mid + 1;
+            }
+
         }
-        System.out.println(count);
+        System.out.println(answer);
     }
 }
