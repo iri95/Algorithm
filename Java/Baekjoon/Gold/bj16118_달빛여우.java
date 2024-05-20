@@ -47,13 +47,6 @@ public class bj16118_달빛여우 {
             route[a].add(new Node(b, d, 0));
             route[b].add(new Node(a, d, 0));
         }
-
-        foxDistance = new double[N + 1];
-        wolfDistance = new double[N + 1];
-        Arrays.fill(foxDistance, Integer.MAX_VALUE);
-        Arrays.fill(wolfDistance, Integer.MAX_VALUE);
-        foxDistance[1] = 0;
-        wolfDistance[1] = 0;
         foxDijkstra();
         wolfDijkstra();
         int answer = 0;
@@ -65,6 +58,9 @@ public class bj16118_달빛여우 {
     }
 
     static void foxDijkstra() {
+        foxDistance = new double[N + 1];
+        Arrays.fill(foxDistance, Integer.MAX_VALUE);
+        foxDistance[1] = 0;
         boolean[] visited = new boolean[N + 1];
         Queue<Node> pq = new PriorityQueue<>();
         pq.add(new Node(1, 0));
@@ -82,6 +78,9 @@ public class bj16118_달빛여우 {
     }
 
     static void wolfDijkstra() {
+        wolfDistance = new double[N + 1];
+        Arrays.fill(wolfDistance, Integer.MAX_VALUE);
+        wolfDistance[1] = 0;
         boolean[][] visited = new boolean[3][N + 1];
         Queue<Node> pq = new PriorityQueue<>();
         pq.add(new Node(1, 0, 2));
