@@ -70,6 +70,7 @@ public class bj11967_불켜기 {
                         if (ny < 1 || ny > N || nx < 1 || nx > N || !visit[nx][ny]) continue;
                         visit[p.x][p.y] = true;
                         queue1.add(new Point(p.x, p.y));
+                        break;
                     }
                     if (visit[p.x][p.y]) {
                         queue2.add(new Point(p.x, p.y));
