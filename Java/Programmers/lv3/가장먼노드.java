@@ -40,4 +40,3 @@ public class 가장먼노드 {
         return answer == 0 ? before : answer;
     }
 }
-}
