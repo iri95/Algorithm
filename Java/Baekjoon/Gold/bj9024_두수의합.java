@@ -11,7 +11,7 @@ public class bj9024_두수의합 {
         StringTokenizer st;
         StringBuilder sb = new StringBuilder();
         int T = Integer.parseInt(br.readLine());
-        int n, k, start, end, sum, min, count;
+        int n, k, start, end, sum, min, abs, count;
         int[] list;
         while (T-- > 0) {
             st = new StringTokenizer(br.readLine());
@@ -29,10 +29,11 @@ public class bj9024_두수의합 {
             end = n - 1;
             while (start < end) {
                 sum = list[start] + list[end];
-                if (Math.abs(k - sum) < min) {
+                abs = Math.abs(k - sum);
+                if (abs < min) {
                     count = 1;
-                    min = Math.abs(k - sum);
-                } else if (Math.abs(k - sum) == min) count++;
+                    min = abs;
+                } else if (abs == min) count++;
 
                 if (sum > k) end--;
                 else start++;
