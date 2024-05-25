@@ -57,7 +57,7 @@ public class bj2151_거울설치 {
             Point p = q.poll();
             int ny = p.y + dy[p.d];
             int nx = p.x + dx[p.d];
-            if (ny < 0 || ny >= N || nx < 0 || nx >= N || map[ny][nx] == '*' || values[ny][nx][p.d] < p.count) continue;
+            if (ny < 0 || ny >= N || nx < 0 || nx >= N || map[ny][nx] == '*' || values[ny][nx][p.d] <= p.count) continue;
             q.add(new Point(ny, nx, p.d, p.count));
             values[ny][nx][p.d] = p.count;
             if (ny == point[1][0] && nx == point[1][1]) continue;
@@ -65,8 +65,8 @@ public class bj2151_거울설치 {
                 q.add(new Point(ny, nx, (p.d + 3) % 4, p.count + 1));
                 q.add(new Point(ny, nx, (p.d + 1) % 4, p.count + 1));
             }
-
         }
+
         int ans = INF;
         for (int i = 0; i < 4; i++) {
             ans = Math.min(values[point[1][0]][point[1][1]][i], ans);
