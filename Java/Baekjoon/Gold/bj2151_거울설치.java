@@ -58,9 +58,9 @@ public class bj2151_거울설치 {
             int ny = p.y + dy[p.d];
             int nx = p.x + dx[p.d];
             if (ny < 0 || ny >= N || nx < 0 || nx >= N || map[ny][nx] == '*' || values[ny][nx][p.d] <= p.count) continue;
-            q.add(new Point(ny, nx, p.d, p.count));
             values[ny][nx][p.d] = p.count;
-            if (ny == point[1][0] && nx == point[1][1]) continue;
+            if (map[ny][nx] == '#') continue;
+            q.add(new Point(ny, nx, p.d, p.count));
             if (map[ny][nx] == '!') {
                 q.add(new Point(ny, nx, (p.d + 3) % 4, p.count + 1));
                 q.add(new Point(ny, nx, (p.d + 1) % 4, p.count + 1));
