@@ -24,7 +24,7 @@ public class bj16927_배열돌리기2 {
             }
         }
         int rCount = Math.min(N, M) / 2; // 회전해야할 원 개수
-        int div = (N - 1) * 2 + (M - 1) * 2;
+        int div = 2 * (N + M - 2);
         while (rCount-- > 0) {
             int r = R % div;
             while (r-- > 0) {
