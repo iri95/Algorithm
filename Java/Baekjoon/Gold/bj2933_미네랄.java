@@ -85,7 +85,7 @@ public class bj2933_미네랄 {
         int high = R;
         for (int i = 0; i < C; i++) {
             if (low[i] > R) continue;
-            else if(low[i] == 1) high = 0;
+            else if (low[i] == 1) return;
             for (int j = low[i] - 1; j >= 0; j--) {
                 if (j == 0 || map[j][i] == 'x') {
                     high = Math.min(low[i] - j - 1, high);
@@ -93,12 +93,12 @@ public class bj2933_미네랄 {
                 }
             }
         }
-
         if (high == 0) return;
-        for (int[] p: list) {
+
+        for (int[] p : list) {
             map[p[0]][p[1]] = '.';
         }
-        for (int[] p: list) {
+        for (int[] p : list) {
             map[p[0] - high][p[1]] = 'x';
         }
     }
