@@ -50,7 +50,7 @@ public class bj2933_미네랄 {
                 int nm = f - 1;
                 if (0 <= nx && nx < C && map[f][nx] == 'x' && f != 1) bfs(f, nx); // 날아갈 방향의 bfs
                 if (np <= R && map[np][x] == 'x' && !visited[np][x]) bfs(np, x); // 위의 bfs
-                if (nm > 1 && map[nm][x] == 'x' && !visited[nm][x]) bfs(nm, x); // 위의 bfs
+                if (nm > 1 && map[nm][x] == 'x' && !visited[nm][x]) bfs(nm, x); // 아래의 bfs
                 break;
             } else x += dx[dir];
         }
