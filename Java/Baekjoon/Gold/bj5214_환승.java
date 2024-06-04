@@ -32,7 +32,7 @@ public class bj5214_환승 {
         q.add(new int[]{1, 1});
         while (!q.isEmpty()) {
             int[] p = q.poll();
-            for (int hi: list[p[0]]) {
+            for (int hi : list[p[0]]) {
                 if (visited[hi]) continue;
                 for (int i = 0; i < K; i++) {
                     int now = connect[hi][i];
