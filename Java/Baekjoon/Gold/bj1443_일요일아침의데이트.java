@@ -7,6 +7,7 @@ import java.util.Queue;
 import java.util.StringTokenizer;
 
 // https://velog.io/@lifeisbeautiful/%EB%B0%B1%EC%A4%80-1445%EB%B2%88-%EC%9D%BC%EC%9A%94%EC%9D%BC-%EC%95%84%EC%B9%A8%EC%9D%98-%EB%8D%B0%EC%9D%B4%ED%8A%B8-Java
+// TODO : DFS라고 생각했지만 이런 문제를 다익스트라로 풀 수 있다는 점 알게됨. 정리하자.
 public class bj1443_일요일아침의데이트 {
     static class Node implements Comparable<Node> {
         int y;
