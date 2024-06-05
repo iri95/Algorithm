@@ -3,6 +3,7 @@ package Gold;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
+
 // TODO : DP를 Boolean 그래프로 구현함.
 // https://velog.io/@embeddedjune/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98-%EB%B0%B1%EC%A4%80-DP-9177-%EB%8B%A8%EC%96%B4-%EC%84%9E%EA%B8%B0
 public class bj9177_단어섞기 {
@@ -29,13 +30,13 @@ public class bj9177_단어섞기 {
                     char a = str1[i - 1];
                     char b = str2[j - 1];
                     char c = strs[i + j - 1];
-                    if(a != c && b != c) dp[i][j] = false;
-                    else if(a == c && b != c) dp[i][j] = dp[i - 1][j];
-                    else if(a != c) dp[i][j] = dp[i][j - 1];
+                    if (a != c && b != c) dp[i][j] = false;
+                    else if (a == c && b != c) dp[i][j] = dp[i - 1][j];
+                    else if (a != c) dp[i][j] = dp[i][j - 1];
                     else dp[i][j] = dp[i - 1][j] || dp[i][j - 1];
                 }
             }
-            if (dp[len1][len2])ans.append("Data set " + t + ": yes" );
+            if (dp[len1][len2]) ans.append("Data set " + t + ": yes");
             else ans.append("Data set " + t + ": no");
             ans.append("\n");
         }
