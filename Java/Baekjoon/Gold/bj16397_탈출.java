@@ -7,32 +7,29 @@ import java.util.Queue;
 import java.util.StringTokenizer;
 
 public class bj16397_탈출 {
-    static int N, T, G, INF = 100_000;
-    static boolean[] dp = new boolean[100_000];
-
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
-        N = Integer.parseInt(st.nextToken());
-        T = Integer.parseInt(st.nextToken());
-        G = Integer.parseInt(st.nextToken());
-        dp[N] = true;
-
+        int N = Integer.parseInt(st.nextToken());
+        int T = Integer.parseInt(st.nextToken());
+        int G = Integer.parseInt(st.nextToken());
+        int INF = 100_000;
+        boolean[] visited = new boolean[100_000];
+        visited[N] = true;
         Queue<Integer> q = new ArrayDeque<>();
         q.add(N);
         int count = 0;
-        int ans = INF;
         while (!q.isEmpty() && count <= T) {
             int size = q.size();
-            while(size-- > 0) {
+            while (size-- > 0) {
                 int n = q.poll();
                 if (n == G) {
                     System.out.println(count);
                     return;
                 }
                 if (n + 1 >= INF) continue;
-                if (!dp[n + 1]) {
-                    dp[n + 1] = true;
+                if (!visited[n + 1]) {
+                    visited[n + 1] = true;
                     q.add(n + 1);
                 }
 
@@ -46,8 +43,8 @@ public class bj16397_탈출 {
 
                 if (next < 0) continue;
 
-                if (!dp[next]) {
-                    dp[next] = true;
+                if (!visited[next]) {
+                    visited[next] = true;
                     q.add(next);
                 }
             }
