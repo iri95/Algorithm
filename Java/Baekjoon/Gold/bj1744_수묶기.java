@@ -20,9 +20,9 @@ public class bj1744_수묶기 {
         }
         dp[0] = list[0];
         dp[1] = Math.max(list[1] * list[0], list[1] + list[0]);
-        for (int i = 2; i < N; i++) {
+        for (int i = 2; i < N; i++)
             dp[i] = Math.max(dp[i - 2] + list[i - 1] * list[i], dp[i - 1] + list[i]);
-        }
+
         System.out.println(dp[N - 1]);
     }
 }
