@@ -7,7 +7,7 @@ import java.util.Queue;
 import java.util.StringTokenizer;
 
 public class bj16920_확장게임 {
-    static int N, M, allCount;
+    static int N, M;
     static int[] dy = {1, -1, 0, 0};
     static int[] dx = {0, 0, -1, 1};
     static int[] count;
@@ -28,27 +28,20 @@ public class bj16920_확장게임 {
         }
         map = new char[N][M];
         q = new Queue[P + 1];
-        allCount = 0;
         count = new int[P + 1];
-        int points = N * M;
         for (int i = 0; i <= P; i++) {
             q[i] = new ArrayDeque<>();
         }
         for (int i = 0; i < N; i++) {
             map[i] = br.readLine().toCharArray();
             for (int j = 0; j < M; j++) {
-                if (map[i][j] == '#') {
-                    points--;
-                    continue;
-                }
-                if (map[i][j] == '.') continue;
+                if (map[i][j] == '.' || map[i][j] == '#') continue;
                 int num = map[i][j] - '0';
                 q[num].add(new int[]{i, j, 0});
-                allCount++;
                 count[num]++;
             }
         }
-        while (allCount < points) {
+        while (true) {
             boolean can = false;
             for (int p = 1; p <= P; p++) {
                 if (!q[p].isEmpty()) can = true;
@@ -76,7 +69,6 @@ public class bj16920_확장게임 {
                 if (ny < 0 || ny >= N || nx < 0 || nx >= M || map[ny][nx] != '.') continue;
                 map[ny][nx] = (char) (p + '0');
                 count[p]++;
-                allCount++;
                 q[p].add(new int[]{ny, nx, point[2] + 1});
             }
         }
