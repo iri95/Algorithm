@@ -45,7 +45,9 @@ public class bj21609_상어중학교 {
         }
         if (end) return;
         answer += point[2] * point[2];
-        remove();
+        for (int[] p : list) {
+            map[p[0]][p[1]] = -2;
+        }
         gravity();
         rotation();
         gravity();
@@ -93,12 +95,6 @@ public class bj21609_상어중학교 {
             }
         }
         return true;
-    }
-
-    static void remove() {
-        for (int[] p : list) {
-            map[p[0]][p[1]] = -2;
-        }
     }
 
     static void gravity() {
