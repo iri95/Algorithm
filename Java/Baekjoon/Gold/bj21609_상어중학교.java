@@ -50,7 +50,6 @@ public class bj21609_상어중학교 {
     }
 
     static boolean bfs(int y, int x, int block) {
-        int count = 1;
         int rainbow = 0;
         Queue<int[]> q = new ArrayDeque<>();
         List<int[]> points = new ArrayList<>();
@@ -71,12 +70,12 @@ public class bj21609_상어중학교 {
                         x = Math.min(x, nx);
                     }
                     visited[ny][nx] = true;
-                    count++;
                     points.add(new int[]{ny, nx});
                     q.add(new int[]{ny, nx});
                 }
             }
         }
+        int count = points.size();
         if (count < 2) return false;
 
         if (point[2] < count) {
