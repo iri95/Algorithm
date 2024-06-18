@@ -11,6 +11,7 @@ public class bj21609_상어중학교 {
     static int[] dy = {0, 0, 1, -1};
     static int[] dx = {1, -1, 0, 0};
     static int[][] map;
+    static boolean[][] visited;
     static List<int[]> list = new ArrayList<>();
 
     public static void main(String[] args) throws Exception {
@@ -27,6 +28,7 @@ public class bj21609_상어중학교 {
         }
         while (!end) {
             end = true;
+            visited = new boolean[N][N];
             point = new int[4]; // y, x, 갯수, 무지개 개수;
             autoPlay();
         }
@@ -35,9 +37,9 @@ public class bj21609_상어중학교 {
     }
 
     static void autoPlay() {
-        for (int x = 0; x < N; x++) {
-            for (int y = 0; y < N; y++) {
-                if (map[y][x] <= 0) continue;
+        for (int y = 0; y < N; y++) {
+            for (int x = 0; x < N; x++) {
+                if (map[y][x] <= 0 || visited[y][x]) continue;
                 if (bfs(y, x, map[y][x])) end = false;
             }
         }
@@ -50,10 +52,10 @@ public class bj21609_상어중학교 {
     }
 
     static boolean bfs(int y, int x, int block) {
+        int count = 1;
         int rainbow = 0;
         Queue<int[]> q = new ArrayDeque<>();
         List<int[]> points = new ArrayList<>();
-        boolean[][] visited = new boolean[N][N];
         q.add(new int[]{y, x});
         points.add(new int[]{y, x});
         visited[y][x] = true;
@@ -65,19 +67,19 @@ public class bj21609_상어중학교 {
                 if (ny < 0 || ny >= N || nx < 0 || nx >= N || visited[ny][nx]) continue;
                 if (map[ny][nx] == block || map[ny][nx] == 0) {
                     if (map[ny][nx] == 0) rainbow++;
-                    else {
-                        y = Math.min(y, ny);
-                        x = Math.min(x, nx);
-                    }
                     visited[ny][nx] = true;
+                    count++;
                     points.add(new int[]{ny, nx});
                     q.add(new int[]{ny, nx});
                 }
             }
         }
-        int count = points.size();
         if (count < 2) return false;
-
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < N; j++) {
+                if (map[i][j] == 0) visited[i][j] = false;
+            }
+        }
         if (point[2] < count) {
             point = new int[]{y, x, count, rainbow};
             list = points;
@@ -86,15 +88,8 @@ public class bj21609_상어중학교 {
                 point = new int[]{y, x, count, rainbow};
                 list = points;
             } else if (point[3] == rainbow) {
-                if (point[0] < y) {
-                    point = new int[]{y, x, count, rainbow};
-                    list = points;
-                } else if (point[0] == y) {
-                    if (point[1] < x) {
-                        point = new int[]{y, x, count, rainbow};
-                        list = points;
-                    }
-                }
+                point = new int[]{y, x, count, rainbow};
+                list = points;
             }
         }
         return true;
@@ -134,5 +129,4 @@ public class bj21609_상어중학교 {
         }
         map = subMap;
     }
-
 }
