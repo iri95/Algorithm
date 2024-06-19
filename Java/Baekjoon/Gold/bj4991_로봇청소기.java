@@ -24,7 +24,6 @@ public class bj4991_로봇청소기 {
             N = Integer.parseInt(st.nextToken());
             if (N == 0 || M == 0) break;
             map = new char[N][M];
-            visited = new boolean[N][M][2048];
             int dirty = 0;
             for (int i = 0; i < N; i++) {
                 map[i] = br.readLine().toCharArray();
@@ -38,6 +37,7 @@ public class bj4991_로봇청소기 {
             }
             move = 0;
             full = (int) Math.pow(2, dirty);
+            visited = new boolean[N][M][full];
             bfs:
             while (!q.isEmpty()) {
                 int size = q.size();
