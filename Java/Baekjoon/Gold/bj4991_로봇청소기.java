@@ -32,7 +32,6 @@ public class bj4991_로봇청소기 {
                         q.add(new int[]{i, j, 0}); // y, x, move, visited(bit masking)
                         map[i][j] = '.';
                     } else if (map[i][j] == '*') map[i][j] = (char) (dirty++ + '0');
-
                 }
             }
             move = 0;
