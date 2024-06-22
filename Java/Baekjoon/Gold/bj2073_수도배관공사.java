@@ -15,10 +15,8 @@ public class bj2073_수도배관공사 {
             st = new StringTokenizer(br.readLine());
             int L = Integer.parseInt(st.nextToken());
             int C = Integer.parseInt(st.nextToken());
-            for (int j = D; j - L > 0; j--) {
-                if (dp[j - L] == 0) continue;
-                dp[j] = Math.max(Math.min(dp[j - L], C), dp[j]);
-            }
+            for (int j = D; j - L > 0; j--)
+                if (dp[j - L] != 0) dp[j] = Math.max(Math.min(dp[j - L], C), dp[j]);
             dp[L] = Math.max(C, dp[L]);
         }
         System.out.println(dp[D]);
