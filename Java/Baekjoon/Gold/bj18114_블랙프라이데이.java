@@ -27,13 +27,12 @@ public class bj18114_블랙프라이데이 {
             if (two == C) {
                 System.out.println(1);
                 return;
-            } else if (two > C) {
-                e--;
-            } else {
+            } else if (two > C) e--;
+            else {
                 for (int i = s + 1; i < e; i++) {
                     int three = two + list[i];
                     if (three > C) break;
-                    if (three == C) {
+                    else if (three == C) {
                         System.out.println(1);
                         return;
                     }
