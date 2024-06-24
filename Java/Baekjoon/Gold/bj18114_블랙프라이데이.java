@@ -12,32 +12,35 @@ public class bj18114_블랙프라이데이 {
         int C = Integer.parseInt(st.nextToken());
         st = new StringTokenizer(br.readLine());
         int[] list = new int[N];
-        Set<Integer> set = new HashSet<>();
         for (int i = 0; i < N; i++) {
             list[i] = Integer.parseInt(st.nextToken());
-            set.add(list[i]);
-            if (set.contains(C)) {
+            if (list[i] == C) {
                 System.out.println(1);
                 return;
             }
         }
-        for (int i = 0; i < N; i++) {
-            for (int j = i - 1; j >= 0 ; j--) {
-                int sum = list[i] + list[j];
-                if (sum > C) continue;
-                if (sum == C) {
-                    System.out.println(1);
-                    return;
+        Arrays.sort(list);
+        int s = 0;
+        int e = N - 1;
+        while (s < e) {
+            int two = list[s] + list[e];
+            if (two == C) {
+                System.out.println(1);
+                return;
+            } else if (two > C) {
+                e--;
+            } else {
+                for (int i = s + 1; i < e; i++) {
+                    int three = two + list[i];
+                    if (three > C) break;
+                    if (three == C) {
+                        System.out.println(1);
+                        return;
+                    }
                 }
-                int target = C - sum;
-                if (target == list[i] || target == list[j]) continue;
-                if (set.contains(target)) {
-                    System.out.println(1);
-                    return;
-                }
+                s++;
             }
         }
         System.out.println(0);
     }
-
 }
