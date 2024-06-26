@@ -7,11 +7,9 @@ public class bj16678_모독 {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int N = Integer.parseInt(br.readLine());
         int[] list = new int[N];
-        for (int i = 0; i < N; i++) {
-            list[i] = Integer.parseInt(br.readLine());
-        }
+        for (int i = 0; i < N; i++) list[i] = Integer.parseInt(br.readLine());
+
         Arrays.sort(list);
-        int x = 0;
         long answer = 0;
         int index = 1;
         for (int i = 0; i < N; i++) {
@@ -20,7 +18,6 @@ public class bj16678_모독 {
                 index++;
             }
         }
-
         System.out.println(answer);
     }
 }
