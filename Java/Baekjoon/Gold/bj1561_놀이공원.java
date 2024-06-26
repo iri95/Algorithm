@@ -16,7 +16,7 @@ public class bj1561_놀이공원 {
         if (N <= M) {
             System.out.println(N);
             return;
-        } else N -= M;
+        } else N -= M; // 빠줌으로써 마지막 시간에 탑승한 기구 확인 가능, 빼주지 않으면 마지막 시간은 탑승하고 내린 시간
         times = new int[M + 1];
         long s = 0;
         long e = 0;
