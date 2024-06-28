@@ -25,13 +25,12 @@ public class bj14722_우유도시 {
                     int beforeMilk = (k + 2) % 3;
                     dp[k][i][j] = Math.max(dp[k][i][j],Math.max(dp[k][i - 1][j], dp[k][i][j - 1]));
                     if (nowMilk == k) {
-                        if (dp[beforeMilk][i - 1][j] == 0 && dp[beforeMilk][i][j - 1] == 0) continue;
-                        dp[k][i][j] = Math.max(dp[k][i][j], Math.max(dp[beforeMilk][i - 1][j], dp[beforeMilk][i][j - 1]) + 1);
+                        if (dp[beforeMilk][i - 1][j] != 0 || dp[beforeMilk][i][j - 1] != 0)
+                            dp[k][i][j] = Math.max(dp[k][i][j], Math.max(dp[beforeMilk][i - 1][j], dp[beforeMilk][i][j - 1]) + 1);
                     }
                 }
             }
         }
-        int ans = Math.max(dp[0][N][N], Math.max(dp[1][N][N], dp[2][N][N]));
-        System.out.println(ans);
+        System.out.println(Math.max(dp[0][N][N], Math.max(dp[1][N][N], dp[2][N][N])));
     }
 }
