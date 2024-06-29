@@ -17,16 +17,14 @@ public class bj1525_퍼즐 {
             StringTokenizer st = new StringTokenizer(br.readLine());
             for (int j = 0; j < 3; j++) start.append(st.nextToken());
         }
-        if (start.toString().equals(result)) {
-            System.out.println(0);
-            return;
-        }
-        set.add(start.toString());
-        System.out.println(bfs(start.toString()));
+        String str = start.toString();
+        set.add(str);
+        System.out.println(str.equals(result) ? 0 : bfs(str));
     }
 
     static int bfs(String start) {
         Queue<String> q = new ArrayDeque<>();
+        StringBuilder sb;
         q.add(start);
         int count = 0;
         while (!q.isEmpty()) {
@@ -35,17 +33,16 @@ public class bj1525_퍼즐 {
             while (size-- > 0) {
                 String str = q.poll();
                 int index = str.indexOf('0');
-                int y = index / 3;
-                int x = index % 3;
                 for (int i = 0; i < 4; i++) {
-                    int ny = y + dy[i];
-                    int nx = x + dx[i];
+                    int ny = (index / 3) + dy[i];
+                    int nx = (index % 3) + dx[i];
                     if (ny < 0 || ny > 2 || nx < 0 || nx > 2) continue;
                     int next = ny * 3 + nx;
                     char a = str.charAt(next);
-                    String nextStr = str.replace(a, '9');;
-                    nextStr = nextStr.replace('0', a);
-                    nextStr = nextStr.replace('9', '0');
+                    sb = new StringBuilder(str);
+                    sb.setCharAt(next, '0');
+                    sb.setCharAt(index, a);
+                    String nextStr = sb.toString();
                     if (set.contains(nextStr)) continue;
                     if (nextStr.equals(result)) return count;
                     q.add(nextStr);
