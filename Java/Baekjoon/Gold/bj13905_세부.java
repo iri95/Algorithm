@@ -21,16 +21,13 @@ public class bj13905_세부 {
 
     static int N, M, s, e;
     static int[] parent;
-    static List<int[]>[] list;
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
         N = Integer.parseInt(st.nextToken());
         M = Integer.parseInt(st.nextToken());
-        list = new ArrayList[N + 1];
         parent = new int[N + 1];
         for (int i = 0; i <= N; i++) {
-            list[i] = new ArrayList<>();
             parent[i] = i;
         }
         st = new StringTokenizer(br.readLine());
@@ -52,24 +49,12 @@ public class bj13905_세부 {
             int bP = find(r.b);
             if (aP != bP) {
                 set(aP, bP);
-                list[r.a].add(new int[]{r.b, r.c});
-                list[r.b].add(new int[]{r.a, r.c});
-            }
-        }
-        Queue<int[]> q = new ArrayDeque<>();
-        boolean[] visited = new boolean[N + 1];
-        visited[s] = true;
-        q.add(new int[]{s, max});
-        while (!q.isEmpty()) {
-            int[] p = q.poll();
-            for (int[] next: list[p[0]]) {
-                if (visited[next[0]]) continue;
-                if (next[0] == e) {
-                    System.out.println(Math.min(next[1], p[1]));
+                max = Math.min(max, r.c);
+                // https://www.acmicpc.net/source/74336803
+                if (find(s) == find(e)) {
+                    System.out.println(max);
                     return;
                 }
-                visited[next[0]] = true;
-                q.add(new int[]{next[0], Math.min(next[1], p[1])});
             }
         }
         System.out.println(0);
