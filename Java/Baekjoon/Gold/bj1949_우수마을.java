@@ -34,22 +34,15 @@ public class bj1949_우수마을 {
 
     private static int dfs(int now, int state, int parent) {
         if (dp[now][state] != 0) return dp[now][state];
-        if (nodes[now].isEmpty()) {
-            if (state == 0) return dp[now][1] = 0;
-            else return dp[now][0] = person[now];
-        }
         if (state == 0) {
-            for (int next : nodes[now]){
-                if (next == parent) continue;
-                dp[now][0] += dfs(next, 1, now);
-            }
-
+            for (int next : nodes[now])
+                if (next != parent)
+                    dp[now][0] += dfs(next, 1, now);
             dp[now][0] += person[now];
         } else
-            for (int next : nodes[now]) {
-                if (next == parent) continue;
-                dp[now][1] += Math.max(dfs(next, 0, now), dfs(next, 1, now));
-            }
+            for (int next : nodes[now])
+                if (next != parent)
+                    dp[now][1] += Math.max(dfs(next, 0, now), dfs(next, 1, now));
         return dp[now][state];
     }
 }
