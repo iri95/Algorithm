@@ -33,13 +33,16 @@ public class bj1949_우수마을 {
         System.out.println(Math.max(dp[1][0], dp[1][1]));
     }
 
+    // https://www.acmicpc.net/source/64087956
     private static void dfs(int now) {
         visited[now] = true;
         for (int next : nodes[now]) {
             if (visited[next]) continue;
             dfs(next);
+            int tmp = Math.max(dp[next][0], dp[next][1]);
+            dp[now][1] += tmp;
             dp[now][0] += dp[next][1];
-            dp[now][1] += Math.max(dp[next][0], dp[next][1]);
+
         }
     }
 }
