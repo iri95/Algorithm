@@ -27,8 +27,4 @@ public class N_Queen {
             row[i] = false; rCross[rc] = false; lCross[lc] = false;
         }
     }
-
-    public static void main(String[] args) {
-        System.out.println(solution(4));
-    }
 }
