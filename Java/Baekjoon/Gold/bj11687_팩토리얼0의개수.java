@@ -7,17 +7,16 @@ public class bj11687_팩토리얼0의개수 {
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int M = Integer.parseInt(br.readLine());
-        int cnt = 0;
         int index = 0;
-        while (cnt < M) {
+        while (M > 0) {
             index += 5;
             int k = index;
             while (k % 5 == 0) {
-                cnt++;
+                M--;
                 k /= 5;
             }
         }
-        if (cnt > M) System.out.println(-1);
+        if (M < 0) System.out.println(-1);
         else System.out.println(index);
     }
 }
