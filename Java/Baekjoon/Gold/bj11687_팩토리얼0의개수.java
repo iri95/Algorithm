@@ -10,14 +10,14 @@ public class bj11687_팩토리얼0의개수 {
         int cnt = 0;
         int index = 0;
         while (cnt < M) {
-            index++;
-            int k = index * 5;
+            index += 5;
+            int k = index;
             while (k % 5 == 0) {
                 cnt++;
                 k /= 5;
             }
         }
         if (cnt > M) System.out.println(-1);
-        else System.out.println(index * 5);
+        else System.out.println(index);
     }
 }
