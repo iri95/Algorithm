@@ -14,40 +14,40 @@ public class bj2632_피자판매 {
         int m = Integer.parseInt(st.nextToken());
         int[] A = new int[n];
         int[] B = new int[m];
-        Map<Integer, Integer> aMap = new HashMap();
-        aMap.put(0, 1);
+        int[] aCount = new int[size];
+        aCount[0]++;
         int all = 0;
         for (int i = 0; i < n; i++) {
             A[i] = Integer.parseInt(br.readLine());
             all += A[i];
         }
         if (all == size) ans++;
-        else if (all < size) aMap.put(all, 1);
+        else if (all < size) aCount[all]++;
         all = 0;
         for (int i = 0; i < m; i++) {
             B[i] = Integer.parseInt(br.readLine());
             all += B[i];
         }
+
         for (int i = 0; i < n; i++) {
             int sum = 0;
             for (int j = i; j < i + n - 1; j++) {
                 sum += A[j % n];
                 if (sum < size){
-                  if (!aMap.containsKey(sum)) aMap.put(sum, 1);
-                  else aMap.replace(sum, aMap.get(sum) + 1);
+                  aCount[sum]++;
                 } else if (sum == size) {
                     ans++;
                     break;
                 } else break;
             }
         }
-        if (aMap.containsKey(size - all)) ans += aMap.get(size - all);
+        if (all <= size) ans += aCount[size - all];
         for (int i = 0; i < m; i++) {
             int sum = 0;
             for (int j = i; j < i + m - 1; j++) {
                 sum += B[j % m];
-                if (aMap.containsKey(size - sum)) ans += aMap.get(size - sum);
-                if (sum >= size) break;
+                if (sum <= size) ans += aCount[size - sum];
+                else break;
             }
         }
         System.out.println(ans);
