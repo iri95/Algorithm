@@ -33,8 +33,8 @@ public class bj2632_피자판매 {
             int sum = 0;
             for (int j = i; j < i + n - 1; j++) {
                 sum += A[j % n];
-                if (sum < size){
-                  aCount[sum]++;
+                if (sum < size) {
+                    aCount[sum]++;
                 } else if (sum == size) {
                     ans++;
                     break;
