@@ -23,12 +23,8 @@ public class bj1799_비숍 {
 
     private static int recursion(int n) {
         if (n >= 2 * N - 1) return 0;
-        int y = 0;
-        int x = n;
-        if (x > N - 1){
-            y = x - N + 1;
-            x = N - 1;
-        }
+        int y = n >= N ? n - N + 1 : 0;
+        int x = n >= N ? N - 1 : n;
         int max = -1;
         while (x >= 0 && y < N) {
             if (!map[x][y] && !right[N - 1 - (x - y)]) {
