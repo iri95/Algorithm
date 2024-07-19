@@ -31,7 +31,7 @@ public class bj1799_비숍 {
         if (count[x][visited] >= 0) return count[x][visited];
         int y = Math.max(x - N + 1, 0);
         x = Math.min(x, N - 1);
-        int max = 0;
+        int max = -1;
         while (x >= 0 && y < N) {
             int visit = visited | 1 << (N - 1 - (x - y));
             if (!map[x][y] && (visited & 1 << (N - 1 - (x - y))) == 0) {
@@ -41,6 +41,7 @@ public class bj1799_비숍 {
             x--;
             y++;
         }
-        return count[x + y][visited] = Math.max(max, recursion(x + y + 1, visited));
+        if (max < 0) return count[x + y][visited] = recursion(x + y + 1, visited);
+        else return count[x + y][visited] = max;
     }
 }
