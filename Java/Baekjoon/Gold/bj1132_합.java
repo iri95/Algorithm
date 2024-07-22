@@ -20,14 +20,13 @@ public class bj1132_합 {
                 sum[str.charAt(j) - 'A'][0] += (long) Math.pow(10, n - 1 - j);
             }
         }
+
         Arrays.sort(sum, Comparator.comparingLong(value -> value[0]));
+
         int zeroIndex = -1;
-        for (int i = 0; i < 10; i++) {
-            if (!zero[(int)sum[i][1]]) {
-                zeroIndex = i;
-                break;
-            }
-        }
+        for (int i = 0; i < 10 && zeroIndex == -1; i++)
+            if (!zero[(int)sum[i][1]]) zeroIndex = i;
+
         int value = 9;
         long result = 0;
         for (int i = 9; i >= 0; i--) {
