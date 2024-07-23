@@ -22,16 +22,19 @@ public class bj12892_생일선물 {
             list[i][1] = Integer.parseInt(st.nextToken());
         }
         Arrays.sort(list, Comparator.comparing(o -> o[0]));
-        long[] sum = new long[N + 1];
-        for (int i = 1; i <= N; i++) sum[i] = sum[i - 1] + list[i][1];
         long max = 0;
         int index = 1;
+        long left = 0;
+        long right = 0;
         for (int i = 1; i <= N; i++) {
             while (index <= N) {
-                if (list[index][0] - list[i][0] < D) index++;
-                else break;
+                if (list[index][0] - list[i][0] < D) {
+                    right += list[index][1];
+                    index++;
+                } else break;
             }
-            max = Math.max(max, sum[index - 1] - sum[i - 1]);
+            max = Math.max(max, right - left);
+            left += list[i][1];
         }
         System.out.println(max);
 
