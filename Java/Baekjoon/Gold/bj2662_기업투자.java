@@ -20,11 +20,12 @@ public class bj2662_기업투자 {
         for (int i = 1; i <= N; i++) dp[0][i] = -1;
         for (int i = 1; i <= M; i++) {
             int[] temp = new int[N + 1];
+            System.arraycopy(dp[0], 0, temp, 0, N + 1);
             for (int j = N; j > 0; j--) {
                 int k = map[j][i];
                 for (int l = N; l >= j; l--) {
                     if (dp[0][l - j] == -1) continue;
-                    if (dp[0][l] < dp[0][l - j] + k && temp[l] < dp[0][l - j] + k) {
+                    if (temp[l] < dp[0][l - j] + k) {
                         temp[l] = dp[0][l - j] + k;
                         for (int m = 1; m < i; m++) dp[m][l] = dp[m][l - j];
                         dp[i][l] = j;
