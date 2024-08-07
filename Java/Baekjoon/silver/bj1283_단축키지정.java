@@ -25,24 +25,21 @@ public class bj1283_단축키지정 {
                 }
             }
             if (flag) {
-                for (int j = 0; j < n; j++) {
-                    sb.append(strs[j]).append(" ");
-                }
+                for (String str : strs) sb.append(str).append(" ");
                 sb.append("\n");
                 continue;
             }
             flag = false;
-            for (int j = 0; j < n; j++) {
-                for (int k = 0; k < strs[j].length() && !flag; k++) {
-                    char ch = Character.toUpperCase(strs[j].charAt(k));
-                    if (!set.contains(ch)) {
+            for (String str : strs) {
+                for (int k = 0; k < str.length(); k++) {
+                    char ch = Character.toUpperCase(str.charAt(k));
+                    if (!set.contains(ch) && !flag) {
                         flag = true;
                         set.add(ch);
-                        strs[j] = strs[j].substring(0, k) + "[" + strs[j].charAt(k) + "]" + (k < strs[j].length() - 1 ? strs[j].substring(k + 1) : "");
-                        break;
-                    }
+                        sb.append("[").append(str.charAt(k)).append("]");
+                    } else sb.append(str.charAt(k));
                 }
-                sb.append(strs[j]).append(" ");
+                sb.append(" ");
             }
             sb.append("\n");
         }
