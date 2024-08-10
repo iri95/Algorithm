@@ -2,7 +2,7 @@ package Gold;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-// Gold Greedy bj2590_색종이
+
 public class bj2590_색종이 {
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
