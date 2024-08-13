@@ -2,6 +2,9 @@ package Gold;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.StringTokenizer;
 
 public class bj2352_반도체설계 {
@@ -11,14 +14,13 @@ public class bj2352_반도체설계 {
         StringTokenizer st = new StringTokenizer(br.readLine());
         int[] arr = new int[n + 1];
         for (int i = 1; i <= n; i++) arr[i] = Integer.parseInt(st.nextToken());
-        int[] dp = new int[n + 1];
-        int max = 0;
-        for (int i = 1; i <= n; i++) {
-            for (int j = i - 1; j >= 0 ; j--)
-                if (arr[j] < arr[i]) dp[i] = Math.max(dp[j] + 1, dp[i]);
-            max = Math.max(dp[i], max);
+        List<Integer> list = new LinkedList<>();
+        list.add(arr[1]);
+        for (int i = 2; i <= n; i++) {
+            int value = Collections.binarySearch(list, arr[i]) * (-1) - 1;
+            if (value == list.size()) list.add(arr[i]);
+            else list.set(value, arr[i]);
         }
-        System.out.println(max);
-
+        System.out.println(list.size());
     }
 }
