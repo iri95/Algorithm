@@ -2,10 +2,7 @@ package Gold;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.StringTokenizer;
+import java.util.*;
 
 public class bj2352_반도체설계 {
     public static void main(String[] args) throws Exception {
@@ -14,7 +11,7 @@ public class bj2352_반도체설계 {
         StringTokenizer st = new StringTokenizer(br.readLine());
         int[] arr = new int[n + 1];
         for (int i = 1; i <= n; i++) arr[i] = Integer.parseInt(st.nextToken());
-        List<Integer> list = new LinkedList<>();
+        List<Integer> list = new ArrayList<>();
         list.add(arr[1]);
         for (int i = 2; i <= n; i++) {
             int value = Collections.binarySearch(list, arr[i]) * (-1) - 1;
