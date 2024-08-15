@@ -49,7 +49,6 @@ public class bj1240_노드사이의거리 {
     }
 
     private static int dfs(int node, int e, int cost){
-        if (node == e) return cost;
         for (Node next : nodes[node]) {
             if (visited[next.number]) continue;
             if (next.number == e) return cost + next.cost;
