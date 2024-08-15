@@ -35,27 +35,15 @@ public class 블록이동하기 {
                         q.add(new int[]{ny, nx, robot[2]});
                     }
                 }
-                if (robot[2] == 0) {
-                    for (int i = 0; i < 4; i++) {
-                        if (canSpin(board, robot, i)) {
-                            int ny = robot[0] + spinY[i];
-                            int nx = robot[1] + spinX[i];
-                            if (visited[ny][nx][1]) continue;
-                            if (ny == N - 1 && nx == N - 1) return answer;
-                            visited[ny][nx][1] = true;
-                            q.add(new int[]{ny, nx, 1});
-                        }
-                    }
-                } else {
-                    for (int i = 4; i < 8; i++) {
-                        if (canSpin(board, robot, i)) {
-                            int ny = robot[0] + spinY[i];
-                            int nx = robot[1] + spinX[i];
-                            if (visited[ny][nx][0]) continue;
-                            if (ny == N - 1 && nx == N - 1) return answer;
-                            visited[ny][nx][0] = true;
-                            q.add(new int[]{ny, nx, 0});
-                        }
+                for (int i = 4 * robot[2]; i < 4 * robot[2] + 4; i++) {
+                    if (canSpin(board, robot, i)) {
+                        int ny = robot[0] + spinY[i];
+                        int nx = robot[1] + spinX[i];
+                        int nDir = (robot[2] + 1) % 2;
+                        if (visited[ny][nx][nDir]) continue;
+                        if (ny == N - 1 && nx == N - 1) return answer;
+                        visited[ny][nx][nDir] = true;
+                        q.add(new int[]{ny, nx, nDir});
                     }
                 }
             }
@@ -71,13 +59,13 @@ public class 블록이동하기 {
         if (dir == 0) {
             if (spin == 0 || spin == 3) { // 아래
                 return y + 1 < N && board[y + 1][x] == 0 && board[y + 1][x - 1] == 0;
-            } else{ // 위
+            } else { // 위
                 return y - 1 >= 0 && board[y - 1][x] == 0 && board[y - 1][x - 1] == 0;
             }
         } else {
             if (spin == 4 || spin == 7) { // 왼
                 return x - 1 >= 0 && board[y][x - 1] == 0 && board[y - 1][x - 1] == 0;
-            } else{ // 오
+            } else { // 오
                 return x + 1 < N && board[y][x + 1] == 0 && board[y - 1][x + 1] == 0;
             }
         }
