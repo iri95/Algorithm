@@ -14,7 +14,9 @@ public class bj1240_노드사이의거리 {
             this.cost = cost;
         }
     }
+
     static int N, M;
+    static boolean[] visited;
     static List<Node>[] nodes;
 
     public static void main(String[] args) throws Exception{
@@ -24,6 +26,7 @@ public class bj1240_노드사이의거리 {
         M = Integer.parseInt(st.nextToken());
         nodes = new ArrayList[N + 1];
         for (int i = 0; i <= N; i++) nodes[i] = new ArrayList<>();
+
         for (int i = 1; i < N; i++) {
             st = new StringTokenizer(br.readLine());
             int a = Integer.parseInt(st.nextToken());
@@ -32,30 +35,28 @@ public class bj1240_노드사이의거리 {
             nodes[a].add(new Node(b, c));
             nodes[b].add(new Node(a, c));
         }
+
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < M; i++) {
             st = new StringTokenizer(br.readLine());
             int s = Integer.parseInt(st.nextToken());
             int e = Integer.parseInt(st.nextToken());
-            sb.append(bfs(s, e)).append("\n");
+            visited = new boolean[N + 1];
+            visited[s] = true;
+            sb.append(dfs(s, e, 0)).append("\n");
         }
         System.out.println(sb);
     }
 
-    private static int bfs(int s, int e) {
-        boolean[] visited = new boolean[N + 1];
-        visited[s] = true;
-        Queue<Node> q = new ArrayDeque<>();
-        q.add(new Node(s, 0));
-        bfs : while (!q.isEmpty()) {
-            Node node = q.poll();
-            for (Node next : nodes[node.number]) {
-                if (visited[next.number]) continue;
-                if (next.number == e) return node.cost + next.cost;
-                visited[next.number] = true;
-                q.add(new Node(next.number, node.cost + next.cost));
-            }
+    private static int dfs(int node, int e, int cost){
+        if (node == e) return cost;
+        for (Node next : nodes[node]) {
+            if (visited[next.number]) continue;
+            if (next.number == e) return cost + next.cost;
+            visited[next.number] = true;
+            int re = dfs(next.number, e, cost + next.cost);
+            if (re != -1) return re;
         }
-        return 0;
+        return -1;
     }
 }
