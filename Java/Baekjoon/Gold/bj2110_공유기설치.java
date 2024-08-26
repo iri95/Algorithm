@@ -15,21 +15,18 @@ public class bj2110_공유기설치 {
         N = Integer.parseInt(st.nextToken());
         C = Integer.parseInt(st.nextToken());
         list = new int[N];
-        for (int i = 0; i < N; i++) {
-            list[i] = Integer.parseInt(br.readLine());
-        }
+        for (int i = 0; i < N; i++) list[i] = Integer.parseInt(br.readLine());
         Arrays.sort(list);
-        int start = 1;
+
+        int start = 0;
         int end = list[N - 1] - list[0] + 1;
-        while (start <= end) {
+        while (start < end) {
             int mid = (start + end) / 2;
-            if (getCount(mid) >= C) {
-                start = mid + 1;
-            } else {
-                end = mid - 1;
-            }
+            if (getCount(mid) >= C) start = mid + 1;
+            else end = mid;
         }
-        System.out.println(start -1);
+
+        System.out.println(end - 1);
     }
 
     public static int getCount(int mid) {
@@ -40,6 +37,7 @@ public class bj2110_공유기설치 {
                 cnt++;
                 prev = list[i];
             }
+            if (cnt >= C) return C;
         }
         return cnt;
     }
