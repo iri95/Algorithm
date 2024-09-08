@@ -11,7 +11,6 @@ public class bj1102_발전소 {
     static boolean[] visited;
     static int[][] map;
 
-
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         N = Integer.parseInt(br.readLine());
