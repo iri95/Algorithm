@@ -24,43 +24,17 @@ public class bj2504_괄호의값 {
                     System.out.println(0);
                     return;
                 }
+                if (arr[i - 1] == '(') ans += mul;
                 stack.pop();
-                ans += mul;
                 mul /= 2;
-                while (i < arr.length - 1) {
-                    if (stack.isEmpty()) break;
-                    char c = stack.peek();
-                    if (c == ')' || c == ']' || arr[i + 1] == '(' || arr[i + 1] == '[') break;
-                    if (arr[i + 1] == ')' && c == '(') {
-                        stack.pop();
-                        mul /= 2;
-                    } else if (arr[i + 1] == ']' && c == '[') {
-                        stack.pop();
-                        mul /= 3;
-                    }
-                    i++;
-                }
             } else {
                 if (stack.isEmpty() || stack.peek() != '[') {
                     System.out.println(0);
                     return;
                 }
+                if (arr[i - 1] == '[') ans += mul;
                 stack.pop();
-                ans += mul;
                 mul /= 3;
-                while (i < arr.length - 1) {
-                    if (stack.isEmpty()) break;
-                    char c = stack.peek();
-                    if (c == ')' || c == ']' || arr[i + 1] == '(' || arr[i + 1] == '[') break;
-                    if (arr[i + 1] == ')' && c == '(') {
-                        stack.pop();
-                        mul /= 2;
-                    } else if (arr[i + 1] == ']' && c == '[') {
-                        stack.pop();
-                        mul /= 3;
-                    }
-                    i++;
-                }
             }
         }
         if (!stack.isEmpty()) System.out.println(0);
