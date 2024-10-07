@@ -14,7 +14,8 @@ public class bj1941_소문난칠공주 {
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         for (int i = 0; i < 5; i++) map[i] = br.readLine().toCharArray();
-        comb(0, 0, 0, new int[]{0, 0, 0, 0, 0, 0, 0});
+        for(int i = 0; i <= 18; i++)
+            comb(i, map[i / 5][i % 5] == 'S' ? 1 : 0, 1, new int[]{i, 0, 0, 0, 0, 0, 0});
         System.out.println(answer);
     }
 
@@ -23,7 +24,8 @@ public class bj1941_소문난칠공주 {
             if (sCnt >= 4 && check(arr)) answer++;
             return;
         }
-        for (int i = p; i < 25; i++) {
+        for (int i = p; i < p + 6; i++) {
+            if(i >= 25) break;
             arr[cnt] = i;
             if (map[i / 5][i % 5] == 'S') comb(i + 1, sCnt + 1, cnt + 1, arr);
             else comb(i + 1, sCnt, cnt + 1, arr);
