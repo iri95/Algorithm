@@ -37,21 +37,24 @@ public class bj1800_인터넷설치 {
     }
 
     private static boolean sol(int n) {
-        Queue<int[]> q = new PriorityQueue<>(Comparator.comparingInt(o -> o[1]));
-        int[] k = new int[N + 1];
-        Arrays.fill(k, Integer.MAX_VALUE);
-        k[1] = 0;
+        Queue<int[]> q = new ArrayDeque<>();
+        boolean[][] visited = new boolean[N + 1][K + 1];
+        visited[1][0] = true;
         q.add(new int[]{1, 0});
         while (!q.isEmpty()) {
             int[] now = q.poll();
             for (int[] next : list[now[0]]) {
                 int cnt = now[1];
-                if (next[1] > n) cnt++;
-                if (k[next[0]] <= cnt) continue;
-                k[next[0]] = cnt;
+                if (next[1] > n) {
+                    if (cnt < K) cnt++;
+                    else continue;
+                }
+                if (visited[next[0]][cnt]) continue;
+                if (next[0] == N) return true;
+                visited[next[0]][cnt] = true;
                 q.add(new int[]{next[0], cnt});
             }
         }
-        return k[N] <= K;
+        return false;
     }
 }
