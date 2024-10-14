@@ -46,10 +46,7 @@ public class bj1800_인터넷설치 {
             int[] now = q.poll();
             for (int[] next : list[now[0]]) {
                 int cnt = now[1];
-                if (next[1] > n) {
-                    if (cnt < K) cnt++;
-                    else continue;
-                }
+                if (next[1] > n) cnt++;
                 if (k[next[0]] <= cnt) continue;
                 k[next[0]] = cnt;
                 q.add(new int[]{next[0], cnt});
