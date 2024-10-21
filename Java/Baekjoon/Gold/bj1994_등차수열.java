@@ -7,62 +7,34 @@ import java.util.Arrays;
 public class bj1994_등차수열 {
     static int N;
     static int[] arr;
-    static boolean[][] visited;
+    static int[][] dp;
+
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         N = Integer.parseInt(br.readLine());
-        arr = new int[N];
-        visited = new boolean[N][N];
-        for (int i = 0; i < N; i++)
+        arr = new int[N + 1];
+        dp = new int[N + 1][N + 1];
+        arr[0] = -1;
+        for (int i = 1; i <= N; i++)
             arr[i] = Integer.parseInt(br.readLine());
         Arrays.sort(arr);
-        int ans = 1;
-        for(int i = 0; i < N; i++){
-            for (int j = i + 1; j < N; j++) {
-                if(visited[i][j]) continue;
-                if (arr[i] == arr[j]) {
-                    int cnt = 1;
-                    for (int k = j; k < N; k++) {
-                        if (arr[i] == arr[k]) {
-                            cnt++;
-                            visited[k-1][k] = true;
-                        }
-                        else break;
-                    }
-                    ans = Math.max(ans, cnt);
-                    continue;
+        int answer = 1;
+        for (int i = 1; i < N; i++) {
+            for (int j = i + 1; j <= N; j++) {
+                dp[i][j] = 2;
+                int pre = 2 * arr[i] - arr[j];
+                int s = 0;
+                int e = i - 1;
+                while(s < e){
+                    int m = (s + e) / 2;
+                    if (arr[m] < pre) s = m + 1;
+                    else if (arr[m] == pre && arr[e] == pre) s = m + 1;
+                    else e = m;
                 }
-                ans = Math.max(ans, 2 + sol(j, arr[j] - arr[i]));
+                if (arr[e] == pre) dp[i][j] = Math.max(dp[i][j], dp[e][i] + 1);
+                answer = Math.max(answer, dp[i][j]);
             }
         }
-        System.out.println(ans);
-    }
-    private static int sol(int i, int n){
-        int cnt = 0;
-        int s = arr[i] + n;
-        int now = i;
-        while(true){
-            int next = binarySearch(s);
-            if(next != -1) {
-                visited[now][next] = true;
-                now = next;
-                cnt++;
-                s += n;
-            }
-            else break;
-        }
-        return cnt;
-    }
-
-    private static int binarySearch(int value){
-        int s = 0;
-        int e = N;
-        while(s < e) {
-            int m = (s + e)/ 2;
-            if (arr[m] == value) return m;
-            else if (arr[m] < value) s = m + 1;
-            else e = m;
-        }
-        return -1;
+        System.out.println(answer);
     }
 }
