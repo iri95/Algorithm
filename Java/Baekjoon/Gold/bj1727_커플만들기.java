@@ -13,17 +13,20 @@ public class bj1727_커플만들기 {
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
-        m = Integer.parseInt(st.nextToken());
         n = Integer.parseInt(st.nextToken());
-        mArr = new int[m];
-        nArr = new int[n];
+        m = Integer.parseInt(st.nextToken());
+        nArr = new int[n + 1];
+        mArr = new int[m + 1];
         st = new StringTokenizer(br.readLine());
-        for (int i = 0; i < m; i++) mArr[i] = Integer.parseInt(st.nextToken());
+        for (int i = 1; i <= n; i++) nArr[i] = Integer.parseInt(st.nextToken());
 
         st = new StringTokenizer(br.readLine());
-        for (int i = 0; i < n; i++) nArr[i] = Integer.parseInt(st.nextToken());
+        for (int i = 1; i <= m; i++) mArr[i] = Integer.parseInt(st.nextToken());
 
-        if (m > n) {
+        Arrays.sort(nArr);
+        Arrays.sort(mArr);
+
+        if (m < n) {
             int temp = m;
             m = n;
             n = temp;
@@ -32,25 +35,14 @@ public class bj1727_커플만들기 {
             mArr = nArr;
             nArr = tempArr;
         }
-        Arrays.sort(mArr);
-        Arrays.sort(nArr);
 
-        dp = new int[m][n]; // 이 커플이 이어질 경우의 최솟값.
-        for (int i = 0; i < m; i++) Arrays.fill(dp[i], INF);
-        int result = INF;
-        for (int i = 0; i <= n - m; i++)
-            result = Math.min(result, dfs(0, i));
-
-        System.out.println(result);
-    }
-
-    private static int dfs(int a, int b){
-        if (dp[a][b] != INF) return dp[a][b];
-        if (a == m - 1) return dp[a][b] = Math.abs(mArr[a] - nArr[b]);
-
-        for (int i = b + 1; i <= n - m + a + 1; i++)
-            dp[a][b] = Math.min(dp[a][b], dfs(a + 1, i));
-
-        return dp[a][b] += Math.abs(mArr[a] - nArr[b]);
+        dp = new int[n + 1][m + 1]; // 이 커플이 이어질 경우의 최솟값.
+        for (int i = 1; i <= n; i++) {
+            for (int j = i; j <= m; j++) {
+                dp[i][j] = dp[i - 1][j - 1] + Math.abs(nArr[i] - mArr[j]);
+                if (i < j) dp[i][j] = Math.min(dp[i][j], dp[i][j - 1]);
+            }
+        }
+        System.out.println(dp[n][m]);
     }
 }
