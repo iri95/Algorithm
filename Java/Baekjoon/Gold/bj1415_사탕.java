@@ -34,10 +34,13 @@ public class bj1415_사탕 {
             }
         }
 
+        boolean[] visited = new boolean[sum + 1];
         long answer = 0;
         for (int i = 2; i <= sum; i++) {
-            if (isPrime(i)) {
-                answer += dp[i];
+            if (visited[i]) continue;
+            answer += dp[i];
+            for (int j = i * 2; j <= sum; j += i) {
+                visited[j] = true;
             }
         }
         System.out.println(answer * (map.getOrDefault(0, 0) + 1));
