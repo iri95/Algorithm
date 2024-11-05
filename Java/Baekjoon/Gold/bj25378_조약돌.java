@@ -3,7 +3,7 @@ package Gold;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
-
+// https://velog.io/@taeho97/BaekJoon-25378-%EC%A1%B0%EC%95%BD%EB%8F%8C-Java
 public class bj25378_조약돌 {
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
