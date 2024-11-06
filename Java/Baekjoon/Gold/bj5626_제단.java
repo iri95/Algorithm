@@ -25,18 +25,20 @@ public class bj5626_제단 {
         dp[0][0] = 1;
         for (int i = 1; i < N; i++) {
             if (answer[i] == -1) {
-                for (int j = 0; j <= Math.min(i, N - 1 - i); j++) {
+                dp[i][0] = (dp[i - 1][0] + dp[i - 1][1]) % div;
+                for (int j = 1; j <= Math.min(i, N - 1 - i); j++) {
                     for (int k = -1; k <= 1; k++) {
-                        if (j + k < 0) continue;
                         dp[i][j] += dp[i - 1][j + k];
                         dp[i][j] %= div;
                     }
                 }
             } else {
-                for (int k = -1; k <= 1; k++) {
-                    if (answer[i] + k < 0) continue;
-                    dp[i][answer[i]] += dp[i - 1][answer[i] + k];
-                    dp[i][answer[i]] %= div;
+                if (answer[i] == 0) dp[i][0] = (dp[i - 1][0] + dp[i - 1][1]) % div;
+                else {
+                    for (int k = -1; k <= 1; k++) {
+                        dp[i][answer[i]] += dp[i - 1][answer[i] + k];
+                        dp[i][answer[i]] %= div;
+                    }
                 }
             }
         }
