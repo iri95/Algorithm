@@ -19,7 +19,7 @@ public class 보석쇼핑 {
         while (e < N) {
             set.add(gems[e]);
             map.put(gems[e], map.getOrDefault(gems[e], 0) + 1);
-            while (e != s && (gems[e].equals(gems[s]) || map.get(gems[s]) > 1)) {
+            while (e != s && map.get(gems[s]) > 1) {
                 map.put(gems[s], map.get(gems[s]) - 1);
                 s++;
             }
