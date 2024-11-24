@@ -9,20 +9,20 @@ public class bj6198_옥상정원꾸미기 {
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int N = Integer.parseInt(br.readLine());
-        long[] arr = new long[N];
+        int[] arr = new int[N];
         long[] cnt = new long[N];
-        Deque<long[]> stack = new ArrayDeque<>();
+        Deque<Integer> stack = new ArrayDeque<>();
         for (int i = 0; i < N; i++) arr[i] = Integer.parseInt(br.readLine());
-        stack.push(new long[]{arr[N - 1], 0});
+        stack.push(N - 1);
         long sum = 0;
         for (int i = N - 2; i >= 0; i--) {
-            while(!stack.isEmpty()){
-                if (arr[i] <= stack.peekFirst()[0]) break;
-                long[] a = stack.pop();
-                cnt[i] += a[1] + 1;
+            while (!stack.isEmpty()) {
+                if (arr[i] <= arr[stack.peekFirst()]) break;
+                int a = stack.pop();
+                cnt[i] += cnt[a] + 1;
             }
             sum += cnt[i];
-            stack.push(new long[] {arr[i], cnt[i]});
+            stack.push(i);
         }
         System.out.println(sum);
     }
