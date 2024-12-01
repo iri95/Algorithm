@@ -22,9 +22,8 @@ public class bj1613_역사 {
             for (int j = 1; j <= n; j++) {
                 if (i == j) continue;
                 for (int l = 1; l <= n; l++) {
-                    if (arr[j][l] == 0) {
+                    if (arr[j][l] == 0)
                         if (arr[j][i] == arr[i][l]) arr[j][l] = arr[j][i];
-                    }
                 }
             }
         }
