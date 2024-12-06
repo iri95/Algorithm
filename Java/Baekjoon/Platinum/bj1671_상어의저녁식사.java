@@ -21,7 +21,7 @@ public class bj1671_상어의저녁식사 {
             this.intel = intel;
         }
 
-        public int addEat(Shark s) {
+        public int canEat(Shark s) {
             if (this.size >= s.size && this.v >= s.v && this.intel >= s.intel) {
                 if (this.size == s.size && this.v == s.v && this.intel == s.intel) return 0;
                 return 1;
@@ -50,7 +50,7 @@ public class bj1671_상어의저녁식사 {
         for (int i = 1; i <= N; i++) {
             for (int j = 1; j <= N; j++) {
                 if (i == j) continue;
-                int can = sharks[i].addEat(sharks[j]);
+                int can = sharks[i].canEat(sharks[j]);
                 if (can == 1) sharks[i].eat.add(sharks[j]);
                 else if (can == 0 && i > j) sharks[i].eat.add(sharks[j]);
             }
