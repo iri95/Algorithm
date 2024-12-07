@@ -7,7 +7,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.StringTokenizer;
 
-// 이분매칭 https://loosie.tistory.com/643
 public class bj11376_열혈강호2 {
     static int N, M;
     static int[] num;
@@ -30,12 +29,13 @@ public class bj11376_열혈강호2 {
         }
         num = new int[M + 1];
         int count = 0;
-        check = new boolean[M + 1];
         for (int i = 1; i <= N; i++) {
             for (int j = 0; j < 2; j++) {
-                Arrays.fill(check, false);
+                check = new boolean[M + 1];
                 if (dfs(i)) count++;
+                if (count >= M) break;
             }
+            if (count >= M) break;
         }
         System.out.println(count);
 
@@ -43,12 +43,11 @@ public class bj11376_열혈강호2 {
 
     static boolean dfs(int number) {
         for (int p : list[number]) {
-            if (!check[p]) {
-                check[p] = true;
-                if (num[p] == 0 || dfs(num[p])) {
-                    num[p] = number;
-                    return true;
-                }
+            if (check[p]) continue;
+            check[p] = true;
+            if (num[p] == 0 || dfs(num[p])) {
+                num[p] = number;
+                return true;
             }
         }
         return false;
