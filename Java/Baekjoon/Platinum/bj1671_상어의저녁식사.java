@@ -12,7 +12,7 @@ public class bj1671_상어의저녁식사 {
         int size;
         int v;
         int intel;
-        List<Shark> eat = new ArrayList<>();
+        List<Integer> eat = new ArrayList<>();
 
         public Shark(int num, int size, int v, int intel) {
             this.num = num;
@@ -51,8 +51,8 @@ public class bj1671_상어의저녁식사 {
             for (int j = 1; j <= N; j++) {
                 if (i == j) continue;
                 int can = sharks[i].canEat(sharks[j]);
-                if (can == 1) sharks[i].eat.add(sharks[j]);
-                else if (can == 0 && i > j) sharks[i].eat.add(sharks[j]);
+                if (can == 1) sharks[i].eat.add(j);
+                else if (can == 0 && i > j) sharks[i].eat.add(j);
             }
         }
 
@@ -68,11 +68,11 @@ public class bj1671_상어의저녁식사 {
     }
 
     private static boolean dfs(int shark) {
-        for (Shark next : sharks[shark].eat) {
-            if (visited[next.num]) continue;
-            visited[next.num] = true;
-            if (ate[next.num] == 0 || dfs(ate[next.num])) {
-                ate[next.num] = shark;
+        for (int next : sharks[shark].eat) {
+            if (visited[next]) continue;
+            visited[next] = true;
+            if (ate[next] == 0 || dfs(ate[next])) {
+                ate[next] = shark;
                 return true;
             }
         }
