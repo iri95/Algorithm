@@ -2,64 +2,56 @@ package Platinum;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.ArrayDeque;
-import java.util.Arrays;
-import java.util.Queue;
-import java.util.StringTokenizer;
+import java.util.*;
 
 public class bj11377_열혈강호3 {
+    static int N, M, K;
+    static int[] work;
+    static boolean[] visited;
+    static List<Integer>[] lists;
+
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
-        int N = Integer.parseInt(st.nextToken());
-        int M = Integer.parseInt(st.nextToken());
-        int K = Integer.parseInt(st.nextToken());
-        int n = N + M + 3;
-        int source = 0;
-        int k = N + M + 1;
-        int sink = N + M + 2;
-        int[][] capacity = new int[n][n];
-        capacity[source][k] = K;
+        N = Integer.parseInt(st.nextToken());
+        M = Integer.parseInt(st.nextToken());
+        K = Integer.parseInt(st.nextToken());
+        lists = new ArrayList[N + 1];
+        work = new int[M + 1];
         for (int i = 1; i <= N; i++) {
+            lists[i] = new ArrayList<>();
             st = new StringTokenizer(br.readLine());
             int t = Integer.parseInt(st.nextToken());
             for (int j = 0; j < t; j++) {
                 int nxt = Integer.parseInt(st.nextToken());
-                capacity[i][N + nxt] = 1;
+                lists[i].add(nxt);
             }
-            capacity[source][i] = 1;
-            capacity[k][i] = 1;
+        }
+        int ans = 0;
+        for (int i = 1; i <= N; i++) {
+            visited = new boolean[M + 1];
+            if (dfs(i)) ans++;
+        }
+        for (int i = 1; i <= N; i++) {
+            visited = new boolean[M + 1];
+            if (dfs(i)){
+                ans++;
+                K--;
+            }
+            if (K == 0) break;
         }
 
-        for (int i = 1; i <= M; i++)
-            capacity[N + i][sink] = 1;
-
-        int[][] flow = new int[n][n];
-        int[] parents = new int[n];
-        Queue<Integer> q = new ArrayDeque<>();
-        int answer = 0;
-        while(true){
-            q.add(source);
-            Arrays.fill(parents, -1);
-            while (!q.isEmpty() && parents[sink] == -1) {
-                int cur = q.poll();
-                for (int i = 1; i < n; i++) {
-                    if (capacity[cur][i] > flow[cur][i] && parents[i] == -1){
-                        parents[i] = cur;
-                        q.add(i);
-                    }
-                }
+        System.out.println(ans);
+    }
+    private static boolean dfs(int num) {
+        for (int w : lists[num]) {
+            if(visited[w]) continue;
+            visited[w] = true;
+            if(work[w] == 0 || dfs(work[w])){
+                work[w] = num;
+                return true;
             }
-            if (parents[sink] == -1) break;
-
-            for (int i = sink; i != source ; i = parents[i]) {
-                flow[parents[i]][i] += 1;
-                flow[i][parents[i]] -= 1;
-            }
-            q.clear();
-            answer++;
         }
-
-        System.out.println(answer);
+        return false;
     }
 }
