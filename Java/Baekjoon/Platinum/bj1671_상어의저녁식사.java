@@ -8,14 +8,12 @@ import java.util.StringTokenizer;
 
 public class bj1671_상어의저녁식사 {
     private static class Shark {
-        int num;
         int size;
         int v;
         int intel;
         List<Integer> eat = new ArrayList<>();
 
-        public Shark(int num, int size, int v, int intel) {
-            this.num = num;
+        public Shark(int size, int v, int intel) {
             this.size = size;
             this.v = v;
             this.intel = intel;
@@ -44,7 +42,7 @@ public class bj1671_상어의저녁식사 {
             int size = Integer.parseInt(st.nextToken());
             int v = Integer.parseInt(st.nextToken());
             int intel = Integer.parseInt(st.nextToken());
-            sharks[i] = new Shark(i, size, v, intel);
+            sharks[i] = new Shark(size, v, intel);
         }
 
         for (int i = 1; i <= N; i++) {
