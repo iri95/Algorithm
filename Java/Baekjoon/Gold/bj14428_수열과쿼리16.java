@@ -37,8 +37,7 @@ public class bj14428_수열과쿼리16 {
         if (start == end) return seg[index] = start;
         int x = init(index * 2, start, (start + end) / 2);
         int y = init(index * 2 + 1, (start + end) / 2 + 1, end);
-        if (arr[x] < arr[y]) return seg[index] = x;
-        else if (arr[x] == arr[y]) return seg[index] = Math.min(x, y);
+        if (arr[x] <= arr[y]) return seg[index] = x;
         else return seg[index] = y;
     }
 
@@ -47,8 +46,7 @@ public class bj14428_수열과쿼리16 {
         if (findS <= start && end <= findE) return seg[index];
         int x = min(index * 2, start, (start + end) / 2, findS, findE);
         int y = min(index * 2 + 1, (start + end) / 2 + 1, end, findS, findE);
-        if (arr[x] < arr[y]) return x;
-        else if (arr[x] == arr[y]) return Math.min(x, y);
+        if (arr[x] <= arr[y]) return x;
         else return y;
     }
 
@@ -56,12 +54,11 @@ public class bj14428_수열과쿼리16 {
         if (targetIndex < start || end < targetIndex) return seg[index];
         if (start == end) {
             arr[start] = value;
-            return start;
+            return seg[index];
         }
         int x = modify(index * 2, start, (start + end) / 2, targetIndex, value);
         int y = modify(index * 2 + 1, (start + end) / 2 + 1, end, targetIndex, value);
-        if (arr[x] < arr[y]) return seg[index] = x;
-        else if (arr[x] == arr[y]) return seg[index] = Math.min(x, y);
+        if (arr[x] <= arr[y]) return seg[index] = x;
         else return seg[index] = y;
     }
 }
