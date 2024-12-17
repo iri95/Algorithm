@@ -7,7 +7,7 @@ import java.util.*;
 public class bj1761_정점들의거리 {
     static int N, high;
     static int[] depth;
-    static int[][][] parent;
+    static int[][] parent;
 
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -23,10 +23,10 @@ public class bj1761_정점들의거리 {
             lists[b].add(new int[]{a, c});
         }
 
-        // parent는 2^i 조상을 저장. 자식이 1개만 있는 최악의 경우에도 parent 배열에서 index out이 발생하지 않도록 해야함.
         high = (int) Math.ceil(Math.log(N) / Math.log(2)) + 1;
         depth = new int[N + 1];
-        parent = new int[N + 1][high][2]; // 조상 노드의 노드 번호, 비용을 저장
+        parent = new int[N + 1][high];
+        int[] distance = new int[N + 1];
         Queue<Integer> q = new ArrayDeque<>();
         q.add(1);
         int cnt = -1;
@@ -37,20 +37,18 @@ public class bj1761_정점들의거리 {
                 int cur = q.poll();
                 depth[cur] = cnt;
                 for (int[] next : lists[cur]) {
-                    if (next[0] == parent[cur][0][0]) continue;
-                    parent[next[0]][0][0] = cur;
-                    parent[next[0]][0][1] = next[1];
+                    if (next[0] == parent[cur][0]) continue;
+                    parent[next[0]][0] = cur;
+                    distance[next[0]] = next[1] + distance[cur];
                     q.add(next[0]);
                 }
             }
         }
 
-        for (int i = 1; i < high; i++) {
-            for (int j = 1; j <= N; j++) {
-                parent[j][i][0] = parent[parent[j][i - 1][0]][i - 1][0];
-                parent[j][i][1] = parent[j][i - 1][1] + parent[parent[j][i - 1][0]][i - 1][1];
-            }
-        }
+        for (int i = 1; i < high; i++)
+            for (int j = 1; j <= N; j++)
+                parent[j][i] = parent[parent[j][i - 1]][i - 1];
+
 
         int M = Integer.parseInt(br.readLine());
         StringBuilder sb = new StringBuilder();
@@ -58,37 +56,34 @@ public class bj1761_정점들의거리 {
             StringTokenizer st = new StringTokenizer(br.readLine());
             int a = Integer.parseInt(st.nextToken());
             int b = Integer.parseInt(st.nextToken());
-            sb.append(LCA(a, b)).append("\n");
+            sb.append(distance[a] + distance[b] - distance[LCA(a, b)] * 2).append("\n");
         }
 
         System.out.println(sb);
     }
 
-    private static int LCA(int a, int b){
-        if (depth[a] < depth[b]){
+    private static int LCA(int a, int b) {
+        if (depth[a] < depth[b]) {
             int temp = a;
             a = b;
             b = temp;
         }
 
-        int ans = 0;
         for (int i = high - 1; i >= 0; i--) {
-            if (1 << i <= depth[a] - depth[b]){
-                ans += parent[a][i][1];
-                a = parent[a][i][0];
+            if (1 << i <= depth[a] - depth[b]) {
+                a = parent[a][i];
             }
         }
 
-        if (a == b) return ans;
+        if (a == b) return a;
 
-        for (int i = high - 1; i >= 0; i--){
-            if (parent[a][i][0] != parent[b][i][0]){
-                ans += parent[a][i][1] + parent[b][i][1];
-                a = parent[a][i][0];
-                b = parent[b][i][0];
+        for (int i = high - 1; i >= 0; i--) {
+            if (parent[a][i] != parent[b][i]) {
+                a = parent[a][i];
+                b = parent[b][i];
             }
         }
 
-        return ans + parent[a][0][1] + parent[b][0][1];
+        return parent[a][0];
     }
 }
