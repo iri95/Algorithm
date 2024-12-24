@@ -20,13 +20,17 @@ public class bj2243_사탕상자 {
                     + update(node * 2 + 1, (start + end) / 2 + 1, end, index, diff);
         }
 
-        private int sum(int node, int start, int end, int findS, int findE) {
-            if (findE < start || end < findS) return 0;
-            if (findS <= start && end <= findE) return tree[node];
-            return sum(node * 2, start, (start + end) / 2, findS, findE)
-                    + sum(node * 2 + 1, (start + end) / 2 + 1, end, findS, findE);
+        private int query(int node, int start, int end, int target) {
+            if (start == end) {
+                update(1, 1, INF, start, -1);
+                return start;
+            }
+            int mid = (start + end) / 2;
+            if (target <= tree[node * 2]) return query(node * 2, start, mid, target);
+            else return query(node * 2 + 1, mid + 1, end, target - tree[node * 2]);
         }
     }
+
     static int INF = 1_000_000;
     static SegmentTree seg = new SegmentTree();
 
@@ -43,20 +47,7 @@ public class bj2243_사탕상자 {
                 seg.update(1, 1, INF, B, C);
             } else {
                 int B = Integer.parseInt(st.nextToken());
-                int sum = 0;
-                int start = 1;
-                int end = INF;
-                while(start < end){
-                    int mid = (start + end) / 2;
-                    int front = seg.sum(1, 1, INF, start, mid);
-                    if (front + sum >= B) end = mid;
-                    else {
-                        sum += front;
-                        start = mid + 1;
-                    }
-                }
-                seg.update(1, 1, INF, end, -1);
-                sb.append(end).append("\n");
+                sb.append(seg.query(1, 1, INF, B)).append("\n");
             }
         }
         System.out.println(sb);
