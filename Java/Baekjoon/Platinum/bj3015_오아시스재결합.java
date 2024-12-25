@@ -20,8 +20,7 @@ public class bj3015_오아시스재결합 {
                 cnt += pop[1];
                 if (pop[0] == n) same = pop[1] + 1;
             }
-            cnt += !stack.isEmpty() ? 1 : 0;
-            answer += cnt;
+            answer += !stack.isEmpty() ? cnt + 1 : cnt;
             stack.push(new int[]{n, same});
         }
         System.out.println(answer);
