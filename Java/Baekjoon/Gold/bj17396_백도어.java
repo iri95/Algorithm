@@ -55,7 +55,7 @@ public class bj17396_백도어 {
             visited[cur.num] = true;
             for (Node next : lists[cur.num]) {
                 long dis = cur.cost + next.cost;
-                if(!visited[next.num] && distance[next.num] > dis){
+                if(distance[next.num] > dis){
                     distance[next.num] = dis;
                     pq.add(new Node(next.num, dis));
                 }
