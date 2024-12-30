@@ -35,9 +35,8 @@ public class bj1017_소수쌍 {
         for (int ven : lists[0]) {
             int cnt = 1;
             Arrays.fill(parent, -1);
-            parent[0] = parent[ven] = 0;
             for (int i = 1; i < N; i++) {
-                if (parent[i] != -1) continue;
+                if (parent[i] != -1 || i == ven) continue;
                 visit = new boolean[N];
                 visit[ven] = visit[0] = true;
                 if (dfs(i)) cnt++;
@@ -48,8 +47,7 @@ public class bj1017_소수쌍 {
         else {
             StringBuilder sb = new StringBuilder();
             Collections.sort(answer);
-            for (int i = 0; i < answer.size(); i++)
-                sb.append(answer.get(i)).append(" ");
+            for (int ans : answer) sb.append(ans).append(" ");
             System.out.println(sb);
         }
     }
