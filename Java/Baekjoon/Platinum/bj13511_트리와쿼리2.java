@@ -7,7 +7,8 @@ import java.util.*;
 public class bj13511_트리와쿼리2 {
     static int high;
     static int[] depth;
-    static long[][][] parent;
+    static long[] distance;
+    static int[][] parent;
 
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -25,8 +26,9 @@ public class bj13511_트리와쿼리2 {
         }
 
         high = (int) Math.ceil(Math.log(N) / Math.log(2));
-        parent = new long[N + 1][high][2];
+        parent = new int[N + 1][high];
         depth = new int[N + 1];
+        distance = new long[N + 1];
         boolean[] visited = new boolean[N + 1];
         Queue<Integer> q = new ArrayDeque<>();
         q.add(1);
@@ -41,8 +43,8 @@ public class bj13511_트리와쿼리2 {
                 for (int[] next : edge[cur]) {
                     if (visited[next[0]]) continue;
                     visited[next[0]] = true;
-                    parent[next[0]][0][0] = cur;
-                    parent[next[0]][0][1] = next[1];
+                    parent[next[0]][0] = cur;
+                    distance[next[0]] = distance[cur] + next[1];
                     q.add(next[0]);
                 }
             }
@@ -50,8 +52,7 @@ public class bj13511_트리와쿼리2 {
 
         for (int i = 1; i < high; i++) {
             for (int j = 2; j <= N; j++) {
-                parent[j][i][0] = parent[(int) parent[j][i - 1][0]][i - 1][0];
-                parent[j][i][1] = parent[(int) parent[j][i - 1][0]][i - 1][1] + parent[j][i - 1][1];
+                parent[j][i] = parent[parent[j][i - 1]][i - 1];
             }
         }
 
@@ -62,13 +63,13 @@ public class bj13511_트리와쿼리2 {
             int num = Integer.parseInt(st.nextToken());
             int u = Integer.parseInt(st.nextToken());
             int v = Integer.parseInt(st.nextToken());
+            int[] result = getResult(u, v);
             if (num == 1) {
-                sb.append(getResult(u, v)[0]).append("\n");
+                sb.append(distance[u] + distance[v] - 2 * distance[result[0]]).append("\n");
             } else {
                 int k = Integer.parseInt(st.nextToken());
-                long[] result = getResult(u, v);
                 if (k > result[2]) {
-                    k = (int) result[1] - k + 1;
+                    k = result[1] - k + 1;
                     u = v;
                 }
                 sb.append(findNode(u, k - 1)).append("\n");
@@ -77,53 +78,47 @@ public class bj13511_트리와쿼리2 {
         System.out.println(sb);
     }
 
-    // cost, 총 카운트, u의 count
-    private static long[] getResult(int u, int v) {
-        long cost = 0;
-        long uCount = 1;
-        long vCount = 1;
+    // 최소 공통 조상, 총 카운트, u의 count
+    private static int[] getResult(int u, int v) {
+        int uCount = 1;
+        int vCount = 1;
         if (depth[u] < depth[v]) {
             for (int i = high - 1; i >= 0; i--) {
                 if (depth[v] - depth[u] >= 1 << i) {
-                    cost += parent[v][i][1];
-                    v = (int) parent[v][i][0];
-                    vCount += 1L << i;
+                    v = parent[v][i];
+                    vCount += 1 << i;
                 }
             }
         } else if (depth[u] > depth[v]) {
             for (int i = high - 1; i >= 0; i--) {
                 if (depth[u] - depth[v] >= 1 << i) {
-                    cost += parent[u][i][1];
-                    u = (int) parent[u][i][0];
-                    uCount += 1L << i;
+                    u = parent[u][i];
+                    uCount += 1 << i;
                 }
             }
         }
 
-        if (v == u) return new long[]{cost, uCount + vCount - 1, uCount};
+        if (v == u) return new int[]{u, uCount + vCount - 1, uCount};
 
         for (int i = high - 1; i >= 0; i--) {
-            if (parent[u][i][0] != parent[v][i][0]) {
-                cost += parent[u][i][1];
-                cost += parent[v][i][1];
-                u = (int) parent[u][i][0];
-                v = (int) parent[v][i][0];
-                uCount += 1L << i;
-                vCount += 1L << i;
+            if (parent[u][i] != parent[v][i]) {
+                u = parent[u][i];
+                v = parent[v][i];
+                uCount += 1 << i;
+                vCount += 1 << i;
             }
         }
 
-        return new long[]{cost + parent[u][0][1] + parent[v][0][1], uCount + vCount + 1, uCount + 1};
+        return new int[]{parent[u][0], uCount + vCount + 1, uCount + 1};
     }
 
     private static int findNode(int n, int k) {
         for (int i = high - 1; i >= 0; i--) {
             if (1 << i <= k) {
                 k -= 1 << i;
-                n = (int) parent[n][i][0];
+                n = parent[n][i];
             }
         }
         return n;
     }
 }
-
