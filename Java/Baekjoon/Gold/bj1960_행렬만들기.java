@@ -2,14 +2,72 @@ package Gold;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.ArrayDeque;
-import java.util.Arrays;
-import java.util.Queue;
-import java.util.StringTokenizer;
+import java.util.*;
 
 public class bj1960_행렬만들기 {
+    private static class Point implements Comparable<Point> {
+        int num;
+        int count;
+
+        public Point(int num, int count) {
+            this.num = num;
+            this.count = count;
+        }
+
+        public int compareTo(Point p) {
+            if (this.count == p.count) return this.num - p.num;
+            return p.count - this.count;
+        }
+    }
 
     public static void main(String[] args) throws Exception {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int N = Integer.parseInt(br.readLine());
+        int[] y = new int[N];
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        for (int i = 0; i < N; i++) y[i] = Integer.parseInt(st.nextToken());
+        st = new StringTokenizer(br.readLine());
+        Queue<Point> pq = new PriorityQueue<>();
+        for (int i = 0; i < N; i++) {
+            int c = Integer.parseInt(st.nextToken());
+            if (c != 0) pq.add(new Point(i, c));
+        }
+        boolean flag = true;
+        int[][] map = new int[N][N];
+        for (int i = 0; i < N; i++) {
+            List<Point> list = new ArrayList<>();
+            for (int j = 0; j < y[i]; j++) {
+                if (pq.isEmpty()) {
+                    flag = false;
+                    break;
+                }
+                Point p = pq.poll();
+                map[i][p.num] = 1;
+                p.count--;
+                if (p.count != 0) list.add(p);
+            }
+            pq.addAll(list);
+        }
+        if (!pq.isEmpty()) flag = false;
+
+
+        if (!flag) System.out.println(-1);
+        else {
+            StringBuilder sb = new StringBuilder();
+            sb.append(1).append("\n");
+            for (int i = 0; i < N; i++) {
+                for (int j = 0; j < N; j++) {
+                    sb.append(map[i][j]);
+                }
+                sb.append("\n");
+            }
+            System.out.println(sb);
+        }
+    }
+}
+
+/*
+public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int N = Integer.parseInt(br.readLine());
         int[][] capacity = new int[2 * N + 2][2 * N + 2]; // source : 0, sink : 2 * N +  1
@@ -69,4 +127,4 @@ public class bj1960_행렬만들기 {
         }
         System.out.println(sb);
     }
-}
+ */
