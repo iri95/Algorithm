@@ -29,9 +29,7 @@ public class bj2981_검문 {
         }
         Collections.sort(answer);
         StringBuilder sb = new StringBuilder();
-        if (answer.isEmpty()) sb.append((arr[0] + arr[1]) / 2 - 1);
-        else
-            for (int cur : answer) sb.append(cur).append(" ");
+        for (int cur : answer) sb.append(cur).append(" ");
         System.out.println(sb);
 
     }
