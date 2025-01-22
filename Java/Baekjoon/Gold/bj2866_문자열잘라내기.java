@@ -37,7 +37,6 @@ public class bj2866_문자열잘라내기 {
             }
             if (same) end = mid;
             else start = mid + 1;
-            set.clear();
         }
         System.out.println(end);
     }
