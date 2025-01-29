@@ -27,7 +27,6 @@ public class bj21611_마법사상어와블리자드 {
         for (int i = 0; i < M; i++) {
             st = new StringTokenizer(br.readLine());
             destroy(Integer.parseInt(st.nextToken()), Integer.parseInt(st.nextToken()));
-            pull();
             while (explosion()) pull();
             change();
         }
@@ -44,9 +43,10 @@ public class bj21611_마법사상어와블리자드 {
         while (s-- > 0) {
             ny += dy[d];
             nx += dx[d];
-            if (ny > N || ny <= 0 || nx > N || nx <= 0) return;
+            if (ny > N || ny <= 0 || nx > N || nx <= 0) break;
             map[ny][nx] = 0;
         }
+        pull();
     }
 
     private static boolean explosion() {
