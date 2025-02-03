@@ -44,10 +44,7 @@ public class bj10216_CountCircleGroups {
             }
 
             Set<Integer> set = new HashSet<>();
-            for (int i = 0; i < N; i++) {
-                int p = find(i);
-                set.add(p);
-            }
+            for (int i = 0; i < N; i++) set.add(find(i));
             sb.append(set.size()).append("\n");
         }
         System.out.println(sb);
