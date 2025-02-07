@@ -52,10 +52,9 @@ public class bj2211_네트워크복구 {
             Edge cur = pq.poll();
             if (visited[cur.e]) continue;
             visited[cur.e] = true;
-            answer++;
             sb.append(cur.s).append(" ").append(cur.e).append("\n");
 
-            if (answer == N - 1) break;
+            if (++answer == N - 1) break;
 
             for (Edge next : edges[cur.e]) {
                 if (visited[next.e]) continue;
@@ -65,6 +64,4 @@ public class bj2211_네트워크복구 {
 
         System.out.println(sb);
     }
-
-
 }
