@@ -14,9 +14,16 @@ public class bj1990_소수인팰린드롬 {
 
         StringBuilder sb = new StringBuilder();
         for (int i = a; i <= b; i += 2) {
-            if (i == 13) i = 99;
-            else if (i == 1001) i = 9999;
-            else if (i == 100001) i = 999999;
+            if (i == 13) {
+                i = 99;
+                continue;
+            } else if (i == 1001){
+                i = 9999;
+                continue;
+            } else if (i == 100001) {
+                i = 999999;
+                continue;
+            }
 
             if (isPell(String.valueOf(i)) && isPrime(i))
                 sb.append(i).append("\n");
