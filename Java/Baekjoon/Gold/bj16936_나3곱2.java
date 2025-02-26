@@ -20,11 +20,8 @@ public class bj16936_나3곱2 {
         }
 
         public int compareTo(Number n) {
-            if (this.count3 == n.count3) {
-                if (this.number > n.number) return 1;
-                else if (this.number == n.number) return 0;
-                else return -1;
-            } else return n.count3 - this.count3;
+            if (this.count3 == n.count3) return Long.compare(this.number, n.number);
+            else return n.count3 - this.count3;
         }
     }
 
@@ -32,9 +29,12 @@ public class bj16936_나3곱2 {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int N = Integer.parseInt(br.readLine());
         Number[] arr = new Number[N];
+
         StringTokenizer st = new StringTokenizer(br.readLine());
         for (int i = 0; i < N; i++) arr[i] = new Number(Long.parseLong(st.nextToken()));
+
         Arrays.sort(arr);
+
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < N; i++) sb.append(arr[i].number).append(" ");
         System.out.println(sb);
