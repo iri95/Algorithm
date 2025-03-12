@@ -39,16 +39,14 @@ public class bj2116_주사위쌓기 {
     private static int sol(int n, int bottom) {
         if (n == N) return 0;
 
-        int next = 0;
-        int b = 0;
+        int bottomIndex = 0;
         for (int i = 0; i < 6; i++) {
             if (dices[n][i] == bottom) {
-                next = dices[n][opposite[i]];
-                b = i;
+                bottomIndex = i;
                 break;
             }
         }
 
-        return sol(n + 1, next) + maxValue[n][b];
+        return sol(n + 1, dices[n][opposite[bottomIndex]]) + maxValue[n][bottomIndex];
     }
 }
