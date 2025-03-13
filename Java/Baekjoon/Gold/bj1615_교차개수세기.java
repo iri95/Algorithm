@@ -14,24 +14,22 @@ public class bj1615_교차개수세기 {
 
         int high = (int) Math.ceil(Math.log(N) / Math.log(2)) + 1;
         tree = new int[1 << high];
-        List<int[]> list = new ArrayList<>();
+        List<Integer>[] list = new ArrayList[N + 1];
+        for (int i = 0; i <= N; i++) list[i] = new ArrayList<>();
 
         for (int i = 0; i < M; i++) {
             int a = read();
             int b = read();
-            list.add(new int[]{a, b});
+            list[a].add(b);
         }
-
-        Collections.sort(list, (o1, o2) -> {
-            if (o1[0] == o2[0]) return o1[1] - o2[1];
-            return o1[0] - o2[0];
-        });
 
         long ans = 0;
 
-        for (int[] ij : list) {
-            ans += sum(1, 1, N, ij[1] + 1, N);
-            update(1, 1, N, ij[1]);
+        for (int i = 1; i <= N; i++) {
+            for (int b: list[i])
+                ans += sum(1, 1, N, b + 1, N);
+
+            for (int b: list[i]) update(1, 1, N, b);
         }
 
         System.out.println(ans);
