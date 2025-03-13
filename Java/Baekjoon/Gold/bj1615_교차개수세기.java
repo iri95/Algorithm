@@ -2,7 +2,6 @@ package Gold;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class bj1615_교차개수세기 {
