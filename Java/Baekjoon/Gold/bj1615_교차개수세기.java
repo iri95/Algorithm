@@ -1,12 +1,10 @@
 package Gold;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-import java.util.StringTokenizer;
 
-// java는 메모리 초과가 난다...
 public class bj1615_교차개수세기 {
     private static class SegmentTree {
         int[] tree;
@@ -18,7 +16,7 @@ public class bj1615_교차개수세기 {
 
         private int update(int node, int start, int end, int index) {
             if (index < start || end < index) return tree[node];
-            if (start == end) return tree[node] += 1;
+            if (start == end) return tree[node]++;
             return tree[node] = update(node * 2, start, (start + end) / 2, index)
                     + update(node * 2 + 1, (start + end) / 2 + 1, end, index);
         }
@@ -32,27 +30,24 @@ public class bj1615_교차개수세기 {
     }
 
     public static void main(String[] args) throws Exception {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st = new StringTokenizer(br.readLine());
-        int N = Integer.parseInt(st.nextToken());
-        int M = Integer.parseInt(st.nextToken());
+        int N = read();
+        int M = read();
 
         SegmentTree seg = new SegmentTree(N);
         List<int[]> list = new ArrayList<>();
 
         for (int i = 0; i < M; i++) {
-            st = new StringTokenizer(br.readLine());
-            int a = Integer.parseInt(st.nextToken());
-            int b = Integer.parseInt(st.nextToken());
-            list.add(new int[] {a, b});
+            int a = read();
+            int b = read();
+            list.add(new int[]{a, b});
         }
 
-        list.sort((o1, o2) -> {
+        Collections.sort(list, (o1, o2) -> {
             if (o1[0] == o2[0]) return o1[1] - o2[1];
             return o1[0] - o2[0];
         });
 
-        int ans = 0;
+        long ans = 0;
 
         for (int[] ij : list) {
             ans += seg.sum(1, 1, N, ij[1] + 1, N);
@@ -60,5 +55,14 @@ public class bj1615_교차개수세기 {
         }
 
         System.out.println(ans);
+    }
+
+    private static int read() throws IOException {
+        int n = 0;
+        int i;
+        while ((i = System.in.read()) >= '0')
+            n = (n << 3) + (n << 1) + (i & 15);
+
+        return n;
     }
 }
