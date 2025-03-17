@@ -178,3 +178,75 @@ public class Main {
 }
 
  */
+
+/* 2차원 펜윅 트리 - 840ms, 131428KB
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
+
+public class Main {
+    static int N, M;
+    static int[][] arr;
+    static long[][] fenw; // 펜윅 트리 배열
+
+    public static void main(String[] args) throws Exception {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        N = Integer.parseInt(st.nextToken());
+        M = Integer.parseInt(st.nextToken());
+        arr = new int[N + 1][N + 1];
+        fenw = new long[N + 1][N + 1];
+
+        // 초기 배열 입력 및 펜윅 트리 구축
+        for (int i = 1; i <= N; i++) {
+            st = new StringTokenizer(br.readLine());
+            for (int j = 1; j <= N; j++) {
+                arr[i][j] = Integer.parseInt(st.nextToken());
+                update(i, j, arr[i][j]);
+            }
+        }
+
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < M; i++) {
+            st = new StringTokenizer(br.readLine());
+            int type = Integer.parseInt(st.nextToken());
+            if (type == 0) { // 점 업데이트
+                int x = Integer.parseInt(st.nextToken());
+                int y = Integer.parseInt(st.nextToken());
+                int c = Integer.parseInt(st.nextToken());
+                int diff = c - arr[x][y];
+                arr[x][y] = c;
+                update(x, y, diff);
+            } else { // 구간 합 쿼리
+                int x1 = Integer.parseInt(st.nextToken());
+                int y1 = Integer.parseInt(st.nextToken());
+                int x2 = Integer.parseInt(st.nextToken());
+                int y2 = Integer.parseInt(st.nextToken());
+                long res = query(x2, y2) - query(x1 - 1, y2) - query(x2, y1 - 1) + query(x1 - 1, y1 - 1);
+                sb.append(res).append("\n");
+            }
+        }
+        System.out.println(sb.toString());
+    }
+
+    // (x, y) 위치에 diff만큼 값을 추가하는 함수
+    static void update(int x, int y, int diff) {
+        for (int i = x; i <= N; i += (i & -i)) {
+            for (int j = y; j <= N; j += (j & -j)) {
+                fenw[i][j] += diff;
+            }
+        }
+    }
+
+    // (1,1)부터 (x,y)까지의 합을 구하는 함수
+    static long query(int x, int y) {
+        long sum = 0;
+        for (int i = x; i > 0; i -= (i & -i)) {
+            for (int j = y; j > 0; j -= (j & -j)) {
+                sum += fenw[i][j];
+            }
+        }
+        return sum;
+    }
+}
+ */
