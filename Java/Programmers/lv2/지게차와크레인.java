@@ -17,29 +17,29 @@ public class 지게차와크레인 {
             }
         }
 
-        for(int r = 0; r < requests.length; r++){
-            int c = requests[r].charAt(0) - 'A' + 1;
-            if(requests[r].length() == 1){
+        for (String request : requests) {
+            int c = request.charAt(0) - 'A' + 1;
+            if (request.length() == 1) {
                 Queue<int[]> queue = new ArrayDeque<>();
-                queue.add(new int[] {0, 0});
+                queue.add(new int[]{0, 0});
                 boolean[][] visited = new boolean[ylen + 2][xlen + 2];
                 visited[0][0] = true;
-                while(!queue.isEmpty()){
+                while (!queue.isEmpty()) {
                     int[] cur = queue.poll();
 
-                    for(int k = 0; k < 4; k++){
+                    for (int k = 0; k < 4; k++) {
                         int ny = cur[0] + dy[k];
                         int nx = cur[1] + dx[k];
-                        if(ny < 0 || ny >= ylen + 2 || nx < 0 || nx >= xlen + 2 || visited[ny][nx]) continue;
+                        if (ny < 0 || ny >= ylen + 2 || nx < 0 || nx >= xlen + 2 || visited[ny][nx]) continue;
                         visited[ny][nx] = true;
-                        if(arr[ny][nx] == 0) queue.add(new int[] {ny, nx});
-                        else if(arr[ny][nx] == c) arr[ny][nx] = 0;
+                        if (arr[ny][nx] == 0) queue.add(new int[]{ny, nx});
+                        else if (arr[ny][nx] == c) arr[ny][nx] = 0;
                     }
                 }
             } else {
-                for(int i = 1; i <= ylen; i++){
-                    for(int j = 1; j <= xlen; j++){
-                        if(arr[i][j] == c) arr[i][j] = 0;
+                for (int i = 1; i <= ylen; i++) {
+                    for (int j = 1; j <= xlen; j++) {
+                        if (arr[i][j] == c) arr[i][j] = 0;
                     }
                 }
             }
