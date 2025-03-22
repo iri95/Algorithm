@@ -25,9 +25,6 @@ public class bj1033_칵테일 {
             int b = Integer.parseInt(st.nextToken());
             int p = Integer.parseInt(st.nextToken());
             int q = Integer.parseInt(st.nextToken());
-            int gcd = GCD(p, q);
-            p /= gcd;
-            q /= gcd;
             list.add(new int[]{a, b, p, q});
             link[a].add(b);
             link[b].add(a);
