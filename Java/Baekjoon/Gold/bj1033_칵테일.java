@@ -9,16 +9,17 @@ public class bj1033_칵테일 {
     static int[] value;
     static boolean[] visited;
     static List<Integer>[] link;
+
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         N = Integer.parseInt(br.readLine());
         value = new int[N];
         Arrays.fill(value, 1);
         link = new ArrayList[N];
-        for(int i = 0; i < N; i++) link[i] = new ArrayList<>();
+        for (int i = 0; i < N; i++) link[i] = new ArrayList<>();
         List<int[]> list = new ArrayList<>();
 
-        for(int i = 0; i < N - 1; i++){
+        for (int i = 0; i < N - 1; i++) {
             StringTokenizer st = new StringTokenizer(br.readLine());
             int a = Integer.parseInt(st.nextToken());
             int b = Integer.parseInt(st.nextToken());
@@ -32,7 +33,7 @@ public class bj1033_칵테일 {
             link[b].add(a);
         }
 
-        for(int i = 0; i < N - 1; i++){
+        for (int i = 0; i < N - 1; i++) {
             int[] arr = list.get(i);
             visited = new boolean[N];
             visited[arr[0]] = visited[arr[1]] = true;
@@ -53,10 +54,11 @@ public class bj1033_칵테일 {
 
         System.out.println(sb);
     }
-    private static void bfs(int start, int v){
+
+    private static void bfs(int start, int v) {
         Queue<Integer> q = new ArrayDeque<>();
         q.add(start);
-        while(!q.isEmpty()){
+        while (!q.isEmpty()) {
             int cur = q.poll();
             value[cur] *= v;
             for (int next : link[cur]) {
@@ -66,7 +68,8 @@ public class bj1033_칵테일 {
             }
         }
     }
-    private static int GCD(int x, int y){
+
+    private static int GCD(int x, int y) {
         while (y != 0) {
             int temp = y;
             y = x % y;
