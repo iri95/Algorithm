@@ -26,12 +26,8 @@ public class bj12899_데이터구조 {
     }
 
     private static void update(int node, int start, int end, int index) {
-        if (start == end) {
-            tree[node]++;
-            return;
-        }
-
         tree[node]++;
+        if (start == end) return;
 
         int mid = (start + end) / 2;
         if (mid >= index) update(node * 2, start, mid, index);
@@ -39,15 +35,13 @@ public class bj12899_데이터구조 {
     }
 
     private static int delete(int node, int start, int end, int value) {
+        tree[node]--;
         if (start == end) return start;
 
-        if (value <= tree[node * 2]) {
-            tree[node * 2]--;
+        if (value <= tree[node * 2])
             return delete(node * 2, start, (start + end) / 2, value);
-        } else {
-            tree[node * 2 + 1]--;
+        else
             return delete(node * 2 + 1, (start + end) / 2 + 1, end, value - tree[node * 2]);
-        }
-    }
 
+    }
 }
