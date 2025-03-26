@@ -19,18 +19,23 @@ public class bj12899_데이터구조 {
             int T = Integer.parseInt(st.nextToken());
             int X = Integer.parseInt(st.nextToken());
 
-            if (T == 1) update(1, 1, max, X, 1);
+            if (T == 1) update(1, 1, max, X);
             else sb.append(delete(1, 1, max, X)).append("\n");
         }
         System.out.println(sb);
     }
 
-    private static int update(int node, int start, int end, int index, int diff) {
-        if (index < start || end < index) return tree[node];
-        if (start == end) return tree[node] += diff;
+    private static void update(int node, int start, int end, int index) {
+        if (start == end) {
+            tree[node]++;
+            return;
+        }
 
-        return tree[node] = update(node * 2, start, (start + end) / 2, index, diff)
-                + update(node * 2 + 1, (start + end) / 2 + 1, end, index, diff);
+        tree[node]++;
+
+        int mid = (start + end) / 2;
+        if (mid >= index) update(node * 2, start, mid, index);
+        else update(node * 2 + 1, mid + 1, end, index);
     }
 
     private static int delete(int node, int start, int end, int value) {
