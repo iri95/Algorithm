@@ -20,8 +20,8 @@ public class bj13911_집구하기 {
 
     static int V;
     static boolean[] house;
-    static long[] mac;
-    static long[] star;
+    static int[] mac;
+    static int[] star;
     static List<Edge>[] edges;
 
     public static void main(String[] args) throws Exception {
@@ -49,8 +49,7 @@ public class bj13911_집구하기 {
         st = new StringTokenizer(br.readLine());
         int M = Integer.parseInt(st.nextToken());
         int x = Integer.parseInt(st.nextToken());
-        mac = new long[V + 1];
-        Arrays.fill(mac, x + 1);
+        mac = new int[V + 1];
 
         st = new StringTokenizer(br.readLine());
         int[] macNum = new int[M];
@@ -59,13 +58,11 @@ public class bj13911_집구하기 {
             house[s] = false;
             macNum[i] = s;
         }
-        dijkstra(mac, macNum, x);
 
         st = new StringTokenizer(br.readLine());
         int S = Integer.parseInt(st.nextToken());
         int y = Integer.parseInt(st.nextToken());
-        star = new long[V + 1];
-        Arrays.fill(star, y + 1);
+        star = new int[V + 1];
 
         st = new StringTokenizer(br.readLine());
         int[] starNum = new int[S];
@@ -74,19 +71,22 @@ public class bj13911_집구하기 {
             house[s] = false;
             starNum[i] = s;
         }
+
+        Arrays.fill(mac, x + 1);
+        Arrays.fill(star, y + 1);
+        dijkstra(mac, macNum, x);
         dijkstra(star, starNum, y);
 
-        long result = Long.MAX_VALUE;
+        int result = Integer.MAX_VALUE;
         for (int i = 1; i <= V; i++) {
             if (!house[i] || mac[i] == x + 1 || star[i] == y + 1) continue;
             result = Math.min(mac[i] + star[i], result);
         }
 
-        if (result == Long.MAX_VALUE) System.out.println(-1);
-        else System.out.println(result);
+        System.out.println(result == Integer.MAX_VALUE ? -1 : result);
     }
 
-    private static void dijkstra(long[] costs, int[] start, int max) {
+    private static void dijkstra(int[] costs, int[] start, int max) {
         boolean[] visited = new boolean[V + 1];
         Queue<Edge> pq = new PriorityQueue<>();
 
