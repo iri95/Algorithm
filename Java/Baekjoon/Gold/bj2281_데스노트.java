@@ -8,39 +8,36 @@ import java.util.StringTokenizer;
 public class bj2281_데스노트 {
     static int n, m, INF = 1_000_000_001;
     static int[] arr;
-    static int[] dp;
+    static int[][] dp;
 
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
         n = Integer.parseInt(st.nextToken());
         m = Integer.parseInt(st.nextToken());
-
+        dp = new int[n][m + 1];
         arr = new int[n];
-        for (int i = 0; i < n; i++)
+        for (int i = 0; i < n; i++) {
             arr[i] = Integer.parseInt(br.readLine());
+            Arrays.fill(dp[i], INF);
+        }
 
-        dp = new int[n];
-        Arrays.fill(dp, INF);
-        dp[n - 1] = 0;
-
-        System.out.println(sol(0));
+        System.out.println(sol(1, m - arr[0]));
     }
 
     // 제곱의 합을 반환하는 함수
-    private static int sol(int index) {
-        if (dp[index] != INF) return dp[index];
+    private static int sol(int index, int remain) {
+        if (index == n) return 0;
 
-        int remain = m - arr[index];
-        for (int i = index + 1; i <= n && remain >= 0; i++) {
-            if (i == n) {
-                dp[index] = 0;
-                break;
-            }
+        if (dp[index][remain] != INF) return dp[index][remain];
 
-            dp[index] = Math.min(dp[index], remain * remain + sol(i));
-            remain -= arr[i] + 1;
-        }
-        return dp[index];
+        // 다음 줄에 쓰는 경우
+        int min = sol(index + 1, m - arr[index]) + remain * remain;
+
+        // 이번 줄에 쓰는 경우
+        if (remain > arr[index])
+            min = Math.min(min, sol(index + 1, remain - arr[index] - 1));
+
+        return dp[index][remain] = min;
     }
 }
