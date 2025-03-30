@@ -8,44 +8,39 @@ import java.util.StringTokenizer;
 public class bj2281_데스노트 {
     static int n, m, INF = 1_000_000_001;
     static int[] arr;
-    static int[][] dp;
+    static int[] dp;
 
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
         n = Integer.parseInt(st.nextToken());
         m = Integer.parseInt(st.nextToken());
-        dp = new int[n][m + 1];
-        arr = new int[n];
-        for (int i = 0; i < n; i++) {
-            arr[i] = Integer.parseInt(br.readLine());
-            Arrays.fill(dp[i], INF);
-        }
 
-        System.out.println(sol(0, m));
+        arr = new int[n];
+        for (int i = 0; i < n; i++)
+            arr[i] = Integer.parseInt(br.readLine());
+
+        dp = new int[n];
+        Arrays.fill(dp, INF);
+        dp[n - 1] = 0;
+
+        System.out.println(sol(0));
     }
 
     // 제곱의 합을 반환하는 함수
-    private static int sol(int index, int remain) {
-        if (dp[index][remain] != INF) return dp[index][remain];
+    private static int sol(int index) {
+        if (dp[index] != INF) return dp[index];
 
-        int pow = (int) Math.pow(remain + 1, 2);
+        int remain = m - arr[index];
+        for (int i = index + 1; i <= n && remain >= 0; i++) {
+            if (i == n) {
+                dp[index] = 0;
+                break;
+            }
 
-        if (index == n - 1) {
-            if (remain >= arr[index]) return 0;
-            else return dp[index][remain] = pow;
+            dp[index] = Math.min(dp[index], remain * remain + sol(i));
+            remain -= arr[i] + 1;
         }
-
-        if (arr[index] > remain)
-            return dp[index][remain] = sol(index, m) + pow;
-        else if (arr[index] == remain)
-            return dp[index][remain] = Math.min(sol(index + 1, m), sol(index, m) + pow);
-        else {
-            if (remain != m) {
-                return dp[index][remain] = Math.min(sol(index, m) + pow
-                        , sol(index + 1, remain - arr[index] - 1));
-            } else
-                return dp[index][remain] = sol(index + 1, remain - arr[index] - 1);
-        }
+        return dp[index];
     }
 }
