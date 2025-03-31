@@ -66,8 +66,8 @@ public class bj9944_NM보드완주하기 {
             ny -= dy[i];
             nx -= dx[i];
             sol(ny, nx, count, move + 1);
-            for (int j = ny, k = nx; !(j == y && k == x); j -= dy[i], k -= dx[i]) {
-                visited[j][k] = false;
+            for (; !(ny == y && nx == x); ny -= dy[i], nx -= dx[i]) {
+                visited[ny][nx] = false;
                 count--;
             }
         }
