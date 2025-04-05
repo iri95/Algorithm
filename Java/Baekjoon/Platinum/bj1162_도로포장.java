@@ -53,7 +53,7 @@ public class bj1162_도로포장 {
 
         long answer = INF;
         for (int i = 0; i <= K; i++)
-            answer = Math.min(answer, cost[N][i] );
+            answer = Math.min(answer, cost[N][i]);
 
         System.out.println(answer);
 
@@ -62,16 +62,12 @@ public class bj1162_도로포장 {
     private static void dijkstra() {
         Queue<Edge> pq = new PriorityQueue<>();
         pq.add(new Edge(1, 0, 0));
-        boolean[][] visited = new boolean[N + 1][K + 1];
 
         while (!pq.isEmpty()) {
             Edge cur = pq.poll();
-            if (visited[cur.end][cur.count]) continue;
-            visited[cur.end][cur.count] = true;
+            if (cur.cost != cost[cur.end][cur.count]) continue;
 
             for (Edge next : edges[cur.end]) {
-                if (visited[next.end][cur.count]) continue;
-
                 if (cur.count < K && cost[next.end][cur.count + 1] > cost[cur.end][cur.count]) {
                     cost[next.end][cur.count + 1] = cost[cur.end][cur.count];
                     pq.add(new Edge(next.end, cost[next.end][cur.count + 1], cur.count + 1));
@@ -81,7 +77,6 @@ public class bj1162_도로포장 {
                     cost[next.end][cur.count] = cost[cur.end][cur.count] + next.cost;
                     pq.add(new Edge(next.end, cost[next.end][cur.count], cur.count));
                 }
-
             }
         }
     }
