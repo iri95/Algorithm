@@ -24,7 +24,7 @@ public class bj15678_연세워터파크 {
             while (!deque.isEmpty() && deque.peekFirst() < i - D) deque.pollFirst();
             if (!deque.isEmpty()) dp[i] = Math.max(dp[i], dp[deque.peekFirst()] + dp[i]);
             while (!deque.isEmpty() && dp[deque.peekLast()] < dp[i]) deque.pollLast();
-            deque.addLast(i);
+            if (dp[i] > 0)deque.addLast(i);
             answer = Math.max(dp[i], answer);
         }
 
