@@ -14,7 +14,7 @@ public class bj1854_K번쨰최단경로찾기 {
         }
 
         public int compareTo(Edge e) {
-            return Integer.compare(this.cost, e.cost);
+            return this.cost- e.cost;
         }
     }
 
@@ -64,13 +64,13 @@ public class bj1854_K번쨰최단경로찾기 {
 
             if (dist[curNode].size() == K && dist[curNode].peek() < curCost) continue;
 
-            for (Edge next : graph[cur.node]) {
+            for (Edge next : graph[curNode]) {
                 int nextNode = next.node;
                 int cost = curCost + next.cost;
 
                 if (dist[nextNode].size() < K) {
                     dist[nextNode].add(cost);
-                    pq.add(new Edge(next.node, cost));
+                    pq.add(new Edge(nextNode, cost));
                 } else if (dist[nextNode].peek() > cost) {
                     dist[nextNode].poll();
                     dist[nextNode].add(cost);
