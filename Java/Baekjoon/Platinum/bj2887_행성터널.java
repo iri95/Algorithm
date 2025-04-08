@@ -65,29 +65,23 @@ public class bj2887_행성터널 {
             int y = yIndex[cur.n];
             int z = zIndex[cur.n];
 
-            int nx = x;
-            while(nx >= 0 && visited[X[nx].n]) nx--;
-            if (nx >= 0) pq.add(new Node(X[nx].n, Math.abs(X[nx].p - X[x].p)));
+            int nx = x - 1;
+            if (nx >= 0 && !visited[X[nx].n]) pq.add(new Node(X[nx].n, Math.abs(X[nx].p - X[x].p)));
 
-            nx = x;
-            while(nx < N && visited[X[nx].n]) nx++;
-            if (nx < N )pq.add(new Node(X[nx].n, Math.abs(X[nx].p - X[x].p)));
+            nx = x + 1;
+            if (nx < N && !visited[X[nx].n])pq.add(new Node(X[nx].n, Math.abs(X[nx].p - X[x].p)));
 
-            int ny = y;
-            while(ny >= 0 && visited[Y[ny].n]) ny--;
-            if (ny >= 0) pq.add(new Node(Y[ny].n, Math.abs(Y[ny].p - Y[y].p)));
+            int ny = y - 1;
+            if (ny >= 0 && !visited[Y[ny].n]) pq.add(new Node(Y[ny].n, Math.abs(Y[ny].p - Y[y].p)));
 
-            ny = y;
-            while(ny < N && visited[Y[ny].n]) ny++;
-            if(ny < N) pq.add(new Node(Y[ny].n, Math.abs(Y[ny].p - Y[y].p)));
+            ny = y + 1;
+            if(ny < N && !visited[Y[ny].n]) pq.add(new Node(Y[ny].n, Math.abs(Y[ny].p - Y[y].p)));
 
-            int nz = z;
-            while(nz >= 0 && visited[Z[nz].n]) nz--;
-            if (nz >= 0) pq.add(new Node(Z[nz].n, Math.abs(Z[nz].p - Z[z].p)));
+            int nz = z - 1;
+            if (nz >= 0 && !visited[Z[nz].n]) pq.add(new Node(Z[nz].n, Math.abs(Z[nz].p - Z[z].p)));
 
-            nz = z;
-            while(nz < N && visited[Z[nz].n]) nz++;
-            if (nz < N) pq.add(new Node(Z[nz].n, Math.abs(Z[nz].p - Z[z].p)));
+            nz = z + 1;
+            if (nz < N && !visited[Z[nz].n]) pq.add(new Node(Z[nz].n, Math.abs(Z[nz].p - Z[z].p)));
         }
         System.out.println(sum);
     }
