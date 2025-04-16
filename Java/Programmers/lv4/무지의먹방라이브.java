@@ -19,7 +19,7 @@ public class 무지의먹방라이브 {
             }
             if (N == 0) return -1;
             div = remain / N;
-            remain -= div * N;
+            remain %= N;
         }
 
         for (int i = 0; i < food_times.length; i++) {
