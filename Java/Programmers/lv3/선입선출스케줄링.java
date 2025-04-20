@@ -7,7 +7,6 @@ public class 선입선출스케줄링 {
         if (n <= cores.length)
             return n;
 
-        int answer = 0;
         int s = 0;
         int e = 500_000_001;
         while (s < e) {
