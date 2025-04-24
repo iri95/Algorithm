@@ -9,6 +9,79 @@ public class 등산코스정하기 {
     static Set<Integer> gate = new HashSet<>();
 
     public int[] solution(int n, int[][] paths, int[] gates, int[] summits) {
+
+        Arrays.sort(summits);
+
+        for (int summit : summits) sum.add(summit);
+
+        for (int j : gates) gate.add(j);
+
+        edges = new ArrayList[n + 1];
+        for (int i = 0; i <= n; i++)
+            edges[i] = new ArrayList<>();
+
+        int e = 0;
+        for (int[] path : paths) {
+            edges[path[0]].add(new int[]{path[1], path[2]});
+            edges[path[1]].add(new int[]{path[0], path[2]});
+            e = Math.max(e, path[2]);
+        }
+
+        e++;
+
+        for (int i : gates) {
+            int start = 0;
+            while (start < e) {
+                int mid = (start + e) / 2;
+                if (bfs(n, i, mid)) {
+                    e = mid;
+                } else {
+                    start = mid + 1;
+                }
+            }
+            e++;
+        }
+
+        return answer;
+    }
+
+    private static boolean bfs(int n, int s, int limit) {
+        boolean[] visited = new boolean[n + 1];
+        visited[s] = true;
+        Queue<Integer> q = new ArrayDeque<>();
+        q.add(s);
+        boolean flag = false;
+
+        while (!q.isEmpty()) {
+            int cur = q.poll();
+            for (int[] next : edges[cur]) {
+                if (next[1] > limit || visited[next[0]] || gate.contains(next[0])) continue;
+                visited[next[0]] = true;
+                if (sum.contains(next[0])) {
+                    if (answer[1] > limit) {
+                        answer[1] = limit;
+                        answer[0] = next[0];
+                    } else if (answer[1] == limit && answer[0] > next[0]) {
+                        answer[0] = next[0];
+                    }
+                    flag = true;
+                    continue;
+                }
+                q.add(next[0]);
+            }
+        }
+        return flag;
+    }
+}
+
+/* Dijkstra
+public class 등산코스정하기 {
+    static int[] answer = {-1, 10_000_001};
+    static List<int[]>[] edges;
+    static Set<Integer> sum = new HashSet<>();
+    static Set<Integer> gate = new HashSet<>();
+
+    public int[] solution(int n, int[][] paths, int[] gates, int[] summits) {
         Arrays.sort(summits);
 
         for (int summit : summits) sum.add(summit);
@@ -58,3 +131,4 @@ public class 등산코스정하기 {
         }
     }
 }
+*/
