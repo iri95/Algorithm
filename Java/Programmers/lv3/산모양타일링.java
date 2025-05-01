@@ -10,11 +10,8 @@ public class 산모양타일링 {
             int all = dp[0] + dp[1] + dp[2] + dp[3];
 
             dp[1] = (all - dp[2]) % div;
-            dp[0] = all % div;
-            dp[2] = all % div;
-            if (tops[i - 1] == 1) {
-                dp[3] = all % div;
-            } else dp[3] = 0;
+            dp[0] = dp[2] = all % div;
+            dp[3] = all * tops[i - 1] % div;
         }
 
         int answer = 0;
