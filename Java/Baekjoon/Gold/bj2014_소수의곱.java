@@ -16,8 +16,8 @@ public class bj2014_소수의곱 {
         for (int i = 0; i < K; i++)
             primes[i] = Long.parseLong(st.nextToken());
 
-        long[] dp = new long[N + 1];
-        int[] idx = new int[K];
+        long[] dp = new long[N + 1]; // 해당 번째의 값을 저장하는 배열
+        int[] idx = new int[K]; // 소수와 곱할 dp값의 index를 저장하는 배열, 소순는 dp의 앞부터 차례대로 곱해야 한다.
         dp[0] = 1;
 
         for (int i = 1; i <= N; i++) {
