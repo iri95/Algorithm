@@ -21,13 +21,13 @@ public class bj20437_문자열게임2 {
             for (int i = 0; i < 26; i++)
                 list[i] = new ArrayList<>();
 
-            for(int i = 0; i < str.length(); i++)
+            for (int i = 0; i < str.length(); i++)
                 list[str.charAt(i) - 'a'].add(i);
 
             min = INF;
             max = -1;
 
-            for(int i = 0; i < 26; i++) {
+            for (int i = 0; i < 26; i++) {
                 for (int k = K - 1; k < list[i].size(); k++) {
                     int value = list[i].get(k) - list[i].get(k - K + 1) + 1;
                     min = Math.min(min, value);
