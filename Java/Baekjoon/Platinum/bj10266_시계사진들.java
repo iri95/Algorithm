@@ -40,21 +40,17 @@ public class bj10266_시계사진들 {
                 table[i] = ++idx;
         }
 
-        int left = 0, matching = 0;
-        while(left <= n){
-            if (matching < n && arr[left + matching] == target[matching]){
-                matching++;
-                if(matching == n){
+        idx = 0;
+        for(int i = 0; i < n * 2; i ++){
+            while(idx > 0 && target[idx] != arr[i])
+                idx = table[idx - 1];
+
+            if (arr[i] == target[idx]){
+                if (idx == n - 1){
                     System.out.println("possible");
                     return;
-                }
-            } else {
-                if (matching == 0)
-                    left++;
-                else {
-                    left += matching - table[matching - 1];
-                    matching = table[matching - 1];
-                }
+                } else
+                    idx++;
             }
         }
         System.out.println("impossible");
